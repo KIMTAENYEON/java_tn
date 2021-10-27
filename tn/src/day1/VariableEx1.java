@@ -19,11 +19,11 @@ public class VariableEx1 {
 		int num = 1000;
 		score1 = 'A';
 		//System.out.println(isAdult);//에러 발생 : 변수 초기화를 하지 않아서
-		int num2 = 0x11;
+		int num2 = 0x11;//16진수 11
 		System.out.println("num2 = " + num2);
-		int num3 = 011;
+		int num3 = 011;//8진수 11
 		System.out.println("num3 = " + num3);
-		int num4 = 0b11;
+		int num4 = 0b11;//2진수 11
 		System.out.println("num4 = " + num4);
 
 	}
