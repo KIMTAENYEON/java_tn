@@ -16,6 +16,14 @@ public class DayEx1 {
 		System.out.println("성별 : " + str1);
 		int isMale2 = 13;//13:남자,24:여자라는 걸 기억해야하는 불편함이 있다.
 		
+		if(isMale = true)
+		{
+			System.out.println("성별 : 남자");
+		}
+		else
+		{
+			System.out.println("성별 : 여자");
+		}
 	}
 
 }
