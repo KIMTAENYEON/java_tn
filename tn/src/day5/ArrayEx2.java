@@ -27,15 +27,15 @@ public class ArrayEx2 {
 		}
 		System.out.println("----------------");
 		int num1, num2, num3, num4, num5;
-		num1 = 1;
+		num1 = arr[0];
 		System.out.println("num1의 값 : " + num1);
-		num2 = 2;
+		num2 = arr[1];
 		System.out.println("num1의 값 : " + num2);
-		num3 = 3;
+		num3 = arr[2];
 		System.out.println("num1의 값 : " + num3);
-		num4 = 4;
+		num4 = arr[3];
 		System.out.println("num1의 값 : " + num4);
-		num5 = 5;
+		num5 = arr[4];
 		System.out.println("num1의 값 : " + num5);
 	}
 
