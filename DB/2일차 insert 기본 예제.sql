@@ -20,6 +20,7 @@
 -- 과목명이 컴퓨터 개론이고, 과목 코드는 MSC001, 일정과 분반은 미정인 과목을 추가하는 쿼리문을 작성하세요.
 -- insert into subject (su_title, su_code)
 -- 	values ('컴퓨터 개론', 'MSC001');
+-- select * from subject;
 
 -- 2000160001교수님이 1번 과목을 강의한다. 이 내용을 lecture 테이블에 추가하는 코드를 작성하세요.
 --  insert into lecture (le_pr_num, le_su_num)
