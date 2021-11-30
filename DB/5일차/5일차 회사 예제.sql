@@ -9,9 +9,9 @@
 	2년차 사원 홍길동의 월급은? 220만원
 - 월급 지급내역 관리 포함
 */
-create database comapany_tn;
+create database company_tn;
 -- 사원 테이블 생성
-CREATE TABLE `comapany_tn`.`employee` (
+CREATE TABLE `company_tn`.`employee` (
   `em_num` INT NOT NULL,
   `em_reg_num` CHAR(14) NOT NULL,
   `em_name` VARCHAR(45) NOT NULL,
@@ -22,27 +22,27 @@ CREATE TABLE `comapany_tn`.`employee` (
   PRIMARY KEY (`em_num`),
   UNIQUE INDEX `em_reg_num_UNIQUE` (`em_reg_num` ASC) VISIBLE);
 -- 부서 테이블 생성
-CREATE TABLE `comapany_tn`.`department` (
+CREATE TABLE `company_tn`.`department` (
   `de_department` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`de_department`));
 -- 급여 테이블 생성
-CREATE TABLE `comapany_tn`.`salary` (
+CREATE TABLE `company_tn`.`salary` (
   `sa_level` VARCHAR(4) NOT NULL,
   `sa_base_salary` INT NOT NULL,
   `sa_add_salary` INT NOT NULL,
   PRIMARY KEY (`sa_level`));
 -- 사원 테이블에 외래키 부서 테이블
-ALTER TABLE `comapany_tn`.`employee` 
+ALTER TABLE `company_tn`.`employee` 
 ADD CONSTRAINT `em_de_department`
   FOREIGN KEY (`em_de_department`)
-  REFERENCES `comapany_tn`.`department` (`de_department`)
+  REFERENCES `company_tn`.`department` (`de_department`)
   ON DELETE SET NULL
   ON UPDATE SET NULL;
 -- 사원 테이블에 외래키 급여 테이블 
-ALTER TABLE `comapany_tn`.`employee` 
+ALTER TABLE `company_tn`.`employee` 
 ADD CONSTRAINT `em_sa_level`
   FOREIGN KEY (`em_sa_level`)
-  REFERENCES `comapany_tn`.`salary` (`sa_level`)
+  REFERENCES `company_tn`.`salary` (`sa_level`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
