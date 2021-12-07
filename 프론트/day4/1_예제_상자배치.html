@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>상자배치예제</title>
+	<style>
+		.box1{
+			box-sizing: border-box;
+			height: 500px; border: red 2px solid;
+			padding: 10px;
+		}
+		.box1-1{
+			box-sizing: border-box;
+			border: 2px solid blue; height: 100%;
+		}
+		.box2{
+			box-sizing: border-box;
+			height: 500px; border: red 2px solid;
+		}
+		.box2-1{
+			border: 5px solid blue; margin: 10px; height: calc(100% - 20px) ;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+<body>
+	<!-- padding을 이용하여 배치  -->
+	<div class="box1">
+		<div class="box1-1"></div>
+	</div>
+	<!-- margin을 이용하여 배치 -->
+	<div class="box2">
+		<div class="box2-1"></div>
+	</div>
+</body>
+</html>

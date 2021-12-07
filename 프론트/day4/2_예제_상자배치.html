@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>상자배치예제</title>
+	<style>
+		.box1, .box2{
+			box-sizing: border-box;
+			height: 300px; border: 2px solid blue;
+		}
+		.box2{
+			border-color: green;
+			margin-top: 10px;
+		}
+		.box{
+			box-sizing: border-box;
+			border: 2px solid red; padding: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="box1">1</div>
+		<div class="box2">2</div>
+	</div>
+</body>
+</html>
