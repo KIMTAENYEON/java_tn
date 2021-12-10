@@ -10,6 +10,9 @@
 .container-fluid{
 	min-width: 1190px;
 }
+.menu-container::after{
+	content: ''; clear: both; display: block;
+}
 /* 네이버 웨일 박스 */
 .whale-box{
 	 height: 49px; background: #d4f8ff;
@@ -18,6 +21,7 @@
 .search-box{
 	height: 160px; position: relative;
 }
+/* 네이버 로고 */
 .logo-box{
 	width: 222px; height: 52px; 
 	position: absolute; top: calc(50% - 32px); overflow: hidden; left: 21px;
@@ -28,30 +32,163 @@
 	background-size: 444px 439px;
 	background-position: 0 -158px;
 }
+/* 검색창 */
 .search-input-box{
-	width: 586px; height: 56px; border: 2px solid #19ce60; border-radius: 2px; box-sizing: border-box;
+	width: 586px; height: 56px;  
 	position: absolute; top: calc(50% - 28px); left: 268px;
 }
-.input-box{
-	width: 474px; height: 52px; float: left;
+.search-input-container-box{
+	width: 100%; height: 100%; box-sizing: border-box; border: 2px solid #19ce60; 
 }
-.input{
-	width: 444px; height: 24px; padding: 13px 15px; font-size: 18px; margin: 1px;
-	line-height: 24px; 
-	color: #000; font-weight: bold; outline: none; border: none; 
+.search-btn{
+	width: 56px; height: 56px; background: #19ce60; border: none;
+	cursor: pointer; position: absolute; right: 0; top: 0;
 }
-.btn-search{
-	width: 56px; height: 56px; background: #19ce60; float: right;
-	border: none; 
-  cursor: pointer;
+.search-btn .icon-search{
+	display: inline-block; width: 22px; height: 22px;
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
+	background-size: 444px 439px; background-position: -420px -208px;
 }
+.search-input-container{
+	height: 100%; width: 474px; padding: 14px 15px;
+	box-sizing: border-box;
+}
+.search-input{
+	height: 100%; width: 100%; border: none; font-size: 24px;
+}
+.search-input:focus{
+	outline: none;
+}
+
 /* 중간 메뉴 박스 */
 .menu-box{
-	height: 52px; background: #0f0;
+	height: 52px; border-top: 1px solid #e4e8eb;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
+}
+.menu-container-box{
+	height: 100%;
+}
+.menu-container{
+	padding: 11px 0; float: left; height: 100%; box-sizing: border-box;
+}
+.menu-container .green-menu-box,
+.menu-container .black-menu-box{
+	float: left;
+}
+
+.menu-container .green-menu-box .menu-item,
+.menu-container .black-menu-box .menu-item{
+	float: left; margin-left: 12px;
+}
+.menu-container .green-menu-box .menu-item:first-child{
+	margin-left: 0;
+}
+.menu-container .green-menu-box .menu-link,
+.menu-container .black-menu-box .menu-link{
+	color: #03c75a; font-weight: bold; font-size: 15px; line-height: 30px;
+}
+.menu-container .black-menu-box .menu-link{
+	color: #000;
+}
+.menu-container .icon-mail{
+	display: inline-block; width: 21px; height: 21px; 
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
+	background-size: 444px 439px;	background-position: -420px -279px;
+	margin: 3px 9px 0 0; vertical-align: top;
+}
+.menu-container .icon-shopping,
+.menu-container .icon-shopping-live{
+	display: block; width: 24px; height: 20px;
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
+	background-size: 444px 439px; background-position: -420px -232px;
+	margin-top: 5px;
+}
+.menu-container .icon-shopping-live{
+	width: 54px; background-position: -202px -306px;
+}
+.menu-container .icon-tv{
+	display: inline-block; width: 12px; height: 14px; 
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
+	background-size: 444px 439px;	background-position: -256px -212px;
+	margin: 9px 2px 0 0; vertical-align: top;
+}
+/* 더보기 */
+.menu-container .btn-more{
+	float: left; margin-left: 17px; line-height: 30px; font-size: 13px; color: #202020;;
+}
+.menu-container .btn-more::after{
+	display: inline-block; width: 11px; height: 7px; margin-left: 7px; vertical-align: 2px; 
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
+	background-size: 444px 439px; background-position: -83px -296px;
+	content: ''; 
+}
+.btn-more:hover{
+	text-decoration: underline;
 }
 /* 컨텐츠 박스 */
 .contents-box{
-	min-height: 1000px; background: #00f;
+	min-height: 1000px; background: #00f; padding: 20px 30px;
+}
+.contents-box::after{
+	clear: both; content: ''; display: block;
+}
+.contents-l-box{
+	width: 750px; height: 1000px; float: left;
+}
+/* 왼쪽 첫번째 컨텐츠 */
+.contents-l-box1{
+ 	height: 135px; background: whitesmoke; margin-bottom: 12px;
+}
+/* 왼쪽 두번째 컨텐츠 */
+.contents-l-box2{
+	height: 367px; background: whitesmoke;
+}
+.contents-r-box{
+	width: 350px; height: 1000px; float: right;
+}
+/* 오른쪽 첫번째 컨텐츠 (로그인부분)*/
+.contents-r-box1{
+	height: 135px; background: whitesmoke; margin-bottom: 12px; padding: 16px 16px 12px 17px; box-sizing: border-box;
+}
+.login-box{
+	width: 100%; height: 100%; background: whitesmoke; box-sizing: border-box;
+}
+.login-title{
+	height: 16px; padding-left: 3px; margin-bottom: 11px;
+	font-size: 12px; color: gray; 
+}
+.login-link{
+	height: 48px; background: #19ce60; display: block; 
+  text-align: center; padding-top: 12px; font-weight:bold;
+	
+}
+.contents-r-box1 .login-link .naver{
+	font-size: 20px; color: #fff; 
+}
+.contents-r-box1 .login-link .login{
+	font-size: 16px; color: #fff; vertical-align: 1px;
+}
+/* 오른쪽 두번째 컨텐츠 */
+.contents-r-box2{
+	height: 49px; background: whitesmoke; position: relative;
+}
+.contents-r-box2 > .btn-box{
+	width: 47px; height: 24px; position: absolute; top: 11px; right: 10px;
+}
+.contents-r-box2 > .btn-box > .prev-button,
+.contents-r-box2 > .btn-box > .next-button{
+	width: 24px; height: 24px; box-sizing: border-box; border: 1px solid #e4e8eb; 
+	text-align: center; display: block; float: left;
+}
+.contents-r-box2 > .btn-box > .next-button{
+	margin-left: -1px;
+}
+.contents-r-box2 > .btn-box i{
+	font-size: 20px; color: gray; line-height: 23px;
+}
+.contents-r-box2 > .btn-box > .prev-button:hover i,
+.contents-r-box2 > .btn-box > .next-button:hover i{
+	color: red;
 }
 /* 푸터 박스*/
 .footer-box{

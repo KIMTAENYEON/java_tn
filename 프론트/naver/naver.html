@@ -6,22 +6,119 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Naver</title>
 	<link rel="stylesheet" href="naver.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body>
+	<!-- 맨위 웨일창 -->
 	<div class="whale-box container-fluid"></div>
+	<!-- 검색창 -->
 	<div class="search-box container">
+		<!-- 네이버 로고 -->
 		<div class="logo-box">
 			<a href="//www.naver.com" class="logo"></a>
 		</div>
+		<!-- 검색창 박스 -->
 		<div class="search-input-box">
-			<div class="input-box">
-				<input type="text" class="input">
-			</div>
-			<button class="btn-search">검색</button>
+			<form class="search-input-container-box">
+				<div class="search-input-container">
+					<input type="text" class="search-input">
+				</div>
+				<button class="search-btn"><i class="icon-search"></i></button>
+			</form>
 		</div>
 	</div>
-	<div class="menu-box container-fluid"></div>
-	<div class="contents-box container"></div>
+	<!-- 중간 메뉴 -->
+	<div class="menu-box container-fluid">
+		<div class="menu-container-box container">
+			<div class="menu-container">
+				<!-- 메뉴 타입(초록색 메뉴) -->
+				<ul class="green-menu-box menu">
+					<li class="menu-item">
+						<a href="#" class="menu-link"><i class="icon-mail"></i>메일</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">카페</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">블로그</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">지식iN</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link"><i class="icon-shopping"></i></a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link"><i class="icon-shopping-live"></i></a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">pay</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link"><i class="icon-tv"></i>TV</a>
+					</li>
+				</ul>
+				<!-- 메뉴 타입(검은색 메뉴) -->
+				<ul class="black-menu-box menu">
+					<li class="menu-item">
+						<a href="#" class="menu-link">사전</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">뉴스</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">증권</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">부동산</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">지도</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">VIBE</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">책</a>
+					</li>
+					<li class="menu-item">
+						<a href="#" class="menu-link">웹툰</a>
+					</li>
+				</ul>
+				<a href="#" class="btn-more">더보기</a>
+			</div>
+		</div>
+	</div>
+	<!-- 컨텐츠 -->
+	<div class="contents-box container">
+		<!-- 왼쪽 컨텐츠 -->
+		<div class="contents-l-box">
+			<div class="contents-l-box1"></div>
+			<div class="contents-l-box2"></div>
+		</div>
+		<!-- 오른쪽 컨텐츠 -->
+		<div class="contents-r-box">
+			<!-- 로그인 부분-->
+			<div class="contents-r-box1">
+				<div class="login-box">
+					<p class="login-title">네이버를 더 안전하고 편리하게 이용하세요</p>
+					<a href="#" class="login-link">
+						<span class="naver">NAVER</span>
+						<span class="login">로그인</span>
+					</a>
+
+				</div>
+			</div>
+			<!-- 오른쪽 두번째 부분 -->
+			<div class="contents-r-box2">
+				<div class="btn-box">
+					<a href="#" class="prev-button"><i class="fas fa-angle-left"></i></a>
+					<a href="#" class="next-button"><i class="fas fa-angle-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 맨밑 하단 부분 -->
 	<footer class="footer-box container"></footer>
 </body>
 </html>
