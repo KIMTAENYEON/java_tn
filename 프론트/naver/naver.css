@@ -360,21 +360,15 @@
 .contents-l-box3 .group-container{
 	position: relative;
 }
+.contents-l-box3 .btn-next,
 .contents-l-box3 .btn-prev{
-	position: absolute; top: 6px; left: -23px; z-index: 2;
-}
-.contents-l-box3 .btn-next{
-	position: absolute; top: 6px; right: -18px; z-index: 2;
-}
-.contents-l-box3 .icon-prev{
-	display: inline-block;	width: 40px;	height: 40px;
+	position: absolute; width: 40px;	height: 40px;
+	top: 6px; left: -23px; z-index: 3;
 	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
   background-size: 444px 439px;	background-position: -128px -352px;	vertical-align: top; opacity: 0.7;
 }
-.contents-l-box3 .icon-next{
-	display: inline-block;	width: 40px;	height: 40px;
-	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_5f355c.png);
-  background-size: 444px 439px;	background-position: -86px -352px;	vertical-align: top; opacity: 0.7;
+.contents-l-box3 .btn-next{
+	left: auto; right: -23px; background-position: -86px -352px;
 }
 .contents-l-box3 .btn-box i:hover{
 	opacity: 1;
