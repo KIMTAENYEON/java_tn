@@ -64,8 +64,9 @@
 /* 중간 메뉴 박스 */
 .menu-box{
 	height: 52px; border-top: 1px solid #e4e8eb;
-	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%); position: relative;
 }
+/* 메뉴창 */
 .menu-container-box{
 	height: 100%;
 }
@@ -113,7 +114,6 @@
 	background-size: 444px 439px;	background-position: -256px -212px;
 	margin: 9px 2px 0 0; vertical-align: top;
 }
-/* 더보기 */
 .menu-container .btn-more{
 	float: left; margin-left: 17px; line-height: 30px; font-size: 13px; color: #202020;;
 }
@@ -125,6 +125,12 @@
 }
 .btn-more:hover{
 	text-decoration: underline;
+}
+/* 메뉴더보기 (안보이는 부분) */
+.menu-box .service-box{
+	position: absolute;	top: 52px;	right: 0;	left: 0;	display: none;
+	background-color: gray; height: 400px; z-index: 4;
+	padding: 20px 30px 22px;	border-top: 1px solid #e4e8eb; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
 }
 /* 컨텐츠 박스 */
 .contents-box{

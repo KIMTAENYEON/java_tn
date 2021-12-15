@@ -7,6 +7,7 @@
 	<title>Naver</title>
 	<link rel="stylesheet" href="naver.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	<script src="../js/jquery.min.js"></script>
 </head>
 <body>
 	<!-- 맨위 웨일창 -->
@@ -29,6 +30,7 @@
 	</div>
 	<!-- 중간 메뉴 -->
 	<div class="menu-box container-fluid">
+		<!-- 메뉴창 -->
 		<div class="menu-container-box container">
 			<div class="menu-container">
 				<!-- 메뉴 타입(초록색 메뉴) -->
@@ -87,6 +89,9 @@
 				</ul>
 				<a href="#" class="btn-more">더보기</a>
 			</div>
+		</div>
+		<!-- 더보기 (안보이는 부분) -->
+		<div class="service-box">
 		</div>
 	</div>
 	<!-- 컨텐츠 -->
@@ -500,5 +505,10 @@
 	</div>
 	<!-- 맨밑 하단 부분 -->
 	<footer class="footer-box container"></footer>
+	<script>
+		$('.menu-box .btn-more').on('click', function(){
+			$('.service-box').toggle();
+		});
+	</script>
 </body>
 </html>
