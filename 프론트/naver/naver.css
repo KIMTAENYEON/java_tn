@@ -123,8 +123,14 @@
 	background-size: 444px 439px; background-position: -83px -296px;
 	content: ''; 
 }
-.btn-more:hover{
+.menu-container .btn-more:hover{
 	text-decoration: underline;
+}
+.menu-container .btn-more.fold{
+	color: #0ecd5a;
+}
+.menu-container .btn-more.fold::after{
+	background-position: -70px -296px;
 }
 /* 메뉴더보기 (안보이는 부분) */
 .menu-box .service-box{
@@ -417,6 +423,7 @@
 .contents-l-box3 .category-link.recipe:hover{ color: #ebaa00}
 .contents-l-box3 .category-link.game:hover{ color: #5bb8e1}
 .contents-l-box3 .category-link.movie:hover{ color: #1a2f63}
+.contents-l-box3 .category-link.job:hover{color: #d34f12;}
 
 .contents-l-box3 .category-link.sel{
 	color: #fff !important; margin: 0 -1px;
@@ -429,6 +436,7 @@
 .contents-l-box3 .category-link.recipe.sel{ background-color: #ebaa00}
 .contents-l-box3 .category-link.game.sel{ background-color: #5bb8e1}
 .contents-l-box3 .category-link.movie.sel{ background-color: #1a2f63}
+.contents-l-box3 .category-link.job.sel{background-color: #d34f12;}
 /* 오른쪽 박스 */
 .contents-r-box{
 	width: 350px; height: 1000px; float: right;

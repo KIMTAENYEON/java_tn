@@ -24,7 +24,7 @@
 				<div class="search-input-container">
 					<input type="text" class="search-input">
 				</div>
-				<button class="search-btn"><i class="icon-search"></i></button>
+				<button class="btn search-btn"><i class="icon-search"></i></button>
 			</form>
 		</div>
 	</div>
@@ -127,8 +127,8 @@
 				<div class="group-title after">
 					<div class="group-title-left">
 						<a href="#" class="link-newsstand">뉴스스탠드</a>
-						<a href="#" class="btn-sort" id="mySort">구독한 언론사</a>
-						<a href="#" class="btn-sort sort-on" id="allSort">전체언론사</a>
+						<a href="#" class="btn btn-sort" id="mySort">구독한 언론사</a>
+						<a href="#" class="btn btn-sort sort-on" id="allSort">전체언론사</a>
 					</div>
 					<div class="group-title-right">
 						<a href="#" class="link-icon">
@@ -401,18 +401,18 @@
 					<div class="group-container">
 						<!-- 이전, 다음 버튼 -->
 						<div class="btn-box">
-							<a href="#" class="btn-prev"></a>
-							<a href="#" class="btn-next"></a>
+							<a href="#" class="btn btn-prev"></a>
+							<a href="#" class="btn btn-next"></a>
 						</div>
 						<!-- 카테고리 리스트 -->
 						<div class="group-category">
 							<div class="main-category after">
 								<ul class="category-list">
 									<li class="category-item">
-										<a href="#" class="category-link enter">엔터</a>
+										<a href="#" class="category-link enter sel">엔터</a>
 									</li>
 									<li class="category-item">
-										<a href="#" class="category-link sports sel">스포츠</a>
+										<a href="#" class="category-link sports">스포츠</a>
 									</li>
 									<li class="category-item">
 										<a href="#" class="category-link car">자동차</a>
@@ -435,7 +435,7 @@
 								</ul>
 								<ul class="category-list">
 									<li class="category-item">
-										<a href="#" class="category-link">JOP&</a>
+										<a href="#" class="category-link job">JOP&</a>
 									</li>
 									<li class="category-item">
 										<a href="#" class="category-link">테크</a>
@@ -496,7 +496,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="btn-box">
+				<div class="btn btn-box">
 					<a href="#" class="prev-button"><i class="fas fa-angle-left"></i></a>
 					<a href="#" class="next-button"><i class="fas fa-angle-right"></i></a>
 				</div>
@@ -506,15 +506,39 @@
 	<!-- 맨밑 하단 부분 -->
 	<footer class="footer-box container"></footer>
 	<script>
-		$('.menu-box .btn-more').on('click', function(){
+		// 더보기/접기 교체
+		$('.menu-box .btn-more').on('click', function(e){
+			e.preventDefault();
 			$('.service-box').toggle();
-			var text = $('.menu-box .btn-more').text();
-			if(text == '더보기'){
+			if(!$(this).hasClass('fold')){
 				$('.menu-box .btn-more').text('접기');
 			}else{
 				$('.menu-box .btn-more').text('더보기');
 			};
+			$(this).toggleClass('fold');
 		});
+		// 버튼클릭시 화면고정
+		$('.btn').click(function(e){
+			e.preventDefault();
+		})
+		// 카테고리선택
+		$('.contents-l-box3 .category-link').click(function(e){
+			e.preventDefault();
+			$('.contents-l-box3 .category-link').removeClass('sel');
+			$(this).addClass('sel');
+		})
+		// 카테고리 이전,다음
+		var min3 = 0, max3 = 1;
+		var num3 = min3;
+		$('.contents-l-box3 .btn-box .btn').click(function(){
+			if($(this).hasClass('btn-prev')){
+				num3 = --num3 < min3 ? min3 : num3;
+			}
+			else{
+				num3 = ++num3 > max3 ? max3 : num3;
+			}
+			$('.contents-l-box3 .main-category').animate({marginLeft: -750 * num3})
+		})
 	</script>
 </body>
 </html>
