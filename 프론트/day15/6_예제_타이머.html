@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>타이머 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.timer-box{ 
+			width: 500px; padding: 10px; height: 50px; border: 1px solid black;
+			line-height: 50px; text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<!-- 
+		60이 되면 01 : 00이 되도록 코드를 작성하세요.
+		hh : MM : ss : mm
+	 -->
+	<div class="timer-box">
+		<span class="hour">00</span>
+		 : 
+		<span class="minute">00</span>
+		 : 
+		<span class="second">00</span>
+		 : 
+		<span class="millisecond">00</span>
+	</div>
+	<button class="btn-start">시작</button>
+	<button class="btn-stop">중지</button>
+	<button class="btn-record">기록</button>
+	<button class="btn-reset">리셋</button>
+	<script>
+		$(function(){
+			$('.btn-stop').hide();
+			var timerId;
+			var s = 0;	var m = 0;	var h = 0; var ms = 0;
+			// 시작버튼을 클릭했을 때
+			$('.btn-start').click(function(){
+				$(this).hide();
+				$('.btn-stop').show();
+				timerId = setInterval(function(){
+					++ms;
+					if(ms == 100){
+						ms = 0;	++s;
+					}		
+					if(s == 60){
+						s = 0;	++m;
+					}
+					if(m == 60){
+						m = 0;	++h;
+					}
+					$('.hour').text(addZero(h));
+					$('.minute').text(addZero(m));
+					$('.second').text(addZero(s));
+					$('.millisecond').text(addZero(ms));
+				}, 10)
+			});
+			// 중지버튼을 클릭했을 때
+			$('.btn-stop').click(function(){
+				$(this).hide();
+				$('.btn-start').show();
+				clearInterval(timerId);
+			});
+			// 리셋버튼을 클릭했을 때
+			$('.btn-reset').click(function(){
+				$('.btn-stop').click();
+				h = 0, m = 0, s = 0, ms = 0;
+				$('.hour').text(addZero(h));
+				$('.minute').text(addZero(m));
+				$('.second').text(addZero(s));
+				$('.millisecond').text(addZero(ms));
+			});
+			// 기록버튼을 클릭했을 때
+			$('.btn-record').click(function(){
+
+			})
+			// 두자릿수로 변환
+			function addZero(num, isMs){
+				if(isMs){
+					return num < 10 ? '00' + num : (num < 100 ? '0' + num : num)
+				}else{
+					return num < 10 ? '0'+num : num;
+				}
+			}
+		});
+	</script>
+</body>
+</html>
