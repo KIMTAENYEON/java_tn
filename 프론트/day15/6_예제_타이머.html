@@ -8,8 +8,13 @@
 	<script src="../js/jquery.min.js"></script>
 	<style>
 		.timer-box{ 
-			width: 500px; padding: 10px; height: 50px; border: 1px solid black;
+			width: 500px; padding: 10px; border: 1px solid black;
 			line-height: 50px; text-align: center;
+		}
+		.record{ color: blue;}
+		.record:first-child{ color: red;}
+		.record-box{
+			max-height: 250px; overflow: auto;
 		}
 	</style>
 </head>
@@ -26,6 +31,9 @@
 		<span class="second">00</span>
 		 : 
 		<span class="millisecond">00</span>
+		<div class="record-box">
+
+		</div>
 	</div>
 	<button class="btn-start">시작</button>
 	<button class="btn-stop">중지</button>
@@ -71,11 +79,18 @@
 				$('.minute').text(addZero(m));
 				$('.second').text(addZero(s));
 				$('.millisecond').text(addZero(ms));
+				$('.record-box').empty();
 			});
 			// 기록버튼을 클릭했을 때
 			$('.btn-record').click(function(){
-
-			})
+				var strMs = addZero(ms);
+				var strS = addZero(s);
+				var strM = addZero(m);
+				var strH = addZero(h);
+				var strTime = strH + " : " + strM + " : " + strS + " : " + strMs;
+				var strDiv = '<div class="record">' + strTime + '</div>'
+				$('.record-box').prepend(strDiv); 
+			});
 			// 두자릿수로 변환
 			function addZero(num, isMs){
 				if(isMs){
