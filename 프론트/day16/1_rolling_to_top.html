@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>rolling 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.container{
+			border: 1px solid black; height: 50px; overflow: hidden;
+		}
+		.box{	height: 50px; line-height: 50px;	}
+		.box.box1{ background-color: yellow;}
+		.box.box2{ background-color: gray;}
+		.box.box3{ background-color: #0f0;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="wrap-box">
+			<div class="box box1">1</div>
+			<div class="box box2">2</div>
+			<div class="box box3">3</div>
+		</div>	
+	</div>
+	<script>
+		$(function(){
+			var rollingId;
+			rollingId = startRolling();
+			//hover이벤트 등록
+			$('.container').hover(function(){
+				clearInterval(rollingId);
+			}, function(){
+				rollingId = startRolling();
+			});
+		});
+		//롤링함수설정
+		function startRolling(){
+			return setInterval(function(){
+				if(!$('.box').first().is(':animated')){
+					$('.box').first().animate({marginTop: -50}, 1000, function(){
+					$(this).detach().appendTo('.wrap-box').removeAttr('style');
+					});
+				}
+			}, 1500);
+		}
+	</script>
+</body>
+</html>
