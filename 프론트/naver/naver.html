@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="naver.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 	<script src="../js/jquery.min.js"></script>
+	<script src="../js/rolling.js"></script>
 </head>
 <body>
 	<!-- 맨위 웨일창 -->
@@ -98,22 +99,24 @@
 	<div class="contents-box container">
 		<!-- 왼쪽 컨텐츠 -->
 		<div class="contents-l-box">
-			<!-- 광고 부분 -->
+			<!-- 광고 부분(l.1) -->
 			<div class="contents-l-box1">
 				<a href="https://apply.iscu.ac.kr/" class="ad" target="_blank">
 					<img width="750" height="auto" src="https://ssl.pstatic.net/tveta/libs/1360/1360990/1e561ba05c0c51b31720_20211210114107418.jpg" alt="광고 이미지">
 				</a>
 			</div>
-			<!-- 뉴스스탠드 부분 -->
+			<!-- 뉴스스탠드 부분(l.2) -->
 			<div class="contents-l-box2">
 				<!-- 뉴스스탠드 헤더 -->
 				<div class="group-issue after"> 
 					<ul class="issue-area">
 						<li class="after">
 							<div class="link-media">머니투데이</div>
-							<a href="#" class="link-issue">
-								삼성전자·SK하이닉스, 내가 파니까 올랐다…개미 4.5조 순매도
-							</a>
+							<a href="#" class="link-issue">삼성전자·SK하이닉스, 내가 파니까 올랐다…개미 4.5조 순매도</a>
+						</li>
+						<li class="after">
+							<div class="link-media">YTN</div>
+							<a href="#" class="link-issue">이재명·이낙연 "국가비전통합위 공동위원장 맡기로"</a>
 						</li>
 					</ul>
 					<div class="direct-area">
@@ -380,7 +383,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- 주제별캐스트 부분-->
+			<!-- 주제별캐스트 부분(l.3)-->
 			<div class="contents-l-box3">
 				<div class="theme-head">
 					<!-- 주제별캐스트 헤더 -->
@@ -485,7 +488,7 @@
 		</div>
 		<!-- 오른쪽 컨텐츠 -->
 		<div class="contents-r-box">
-			<!-- 로그인 부분-->
+			<!-- 로그인 부분(r.1)-->
 			<div class="contents-r-box1">
 				<div class="login-box">
 					<p class="login-title">네이버를 더 안전하고 편리하게 이용하세요</p>
@@ -496,7 +499,7 @@
 
 				</div>
 			</div>
-			<!-- 오른쪽 두번째 부분 -->
+			<!-- 오른쪽 두번째 부분(r.2) -->
 			<div class="contents-r-box2">
 				<div class="contents-view">
 					<ul class="contents-list">
@@ -509,6 +512,11 @@
 						<li class="contents-item">
 							<a href="#" class="contents-link">
 								2
+							</a>
+						</li>
+						<li class="contents-item">
+							<a href="#" class="contents-link">
+								3
 							</a>
 						</li>
 					</ul>
@@ -566,7 +574,7 @@
 			}
 		});
 		//이전버튼
-		$('.btn-prev').click(function(e){
+		$('contents-l-box3 .btn-prev').click(function(e){
 			e.preventDefault();
 			if( $(menuSelector+' .sel').parent().prev().length == 1){
 				$(menuSelector+' .sel').parent().prev().click();
@@ -579,7 +587,7 @@
 			}
 		});
 		//다음버튼
-		$('.btn-next').click(function(e){
+		$('contents-l-box3 .btn-next').click(function(e){
 			e.preventDefault();
 			if( $(menuSelector+' .sel').parent().next().length == 1){
 				$(menuSelector+' .sel').parent().next().click();
@@ -594,6 +602,50 @@
 			}
 		});
 		$('.category-list:first-of-type .category-item:first-child').children().click();
+		//뉴스스탠드 롤링
+		$(function(){
+			var issueAreaId;
+			issueAreaId = rollingToTop('.issue-area', 'li', 2000, 500);
+			//hover이벤트 등록
+			$('.contents-l-box2 .issue-area').hover(function(){
+				clearInterval(issueAreaId);
+				$(this).find('.link-issue').css('text-decoration', 'underline')
+			}, function(){
+				issueAreaId = rollingToTop('.issue-area', 'li', 2000, 500);
+				$(this).find('.link-issue').css('text-decoration', 'none')
+			});
+		});
+		//오른쪽 두번째 롤링
+		$(function(){
+			var contentsId;
+			contentsId = rollingToLeft('.contents-view', '.contents-list', '.contents-item', 2000, 500);
+			//hover이벤트 등록
+			$('.contents-r-box2').hover(function(){
+				clearInterval(contentsId);
+			}, function(){
+				contentsId = rollingToLeft('.contents-view', '.contents-list', '.contents-item', 2000, 500);
+			});
+			//이전버튼 클릭할 때
+			$('.contents-r-box2 .prev-button').click(function(e){
+				e.preventDefault();
+				if(!$('.contents-item').first().is(':animated')){
+						var width = $('.contents-view').width();
+						$('.contents-item').last().detach().css('margin-left', -width + 'px').prependTo('.contents-list').animate({marginLeft: 0}, 500, function(){
+						});
+					}
+			});
+			//다음버튼 클릭할 때
+			$('.contents-r-box2 .next-button').click(function(e){
+				e.preventDefault();
+				if(!$('.contents-item').first().is(':animated')){
+						var width = $('.contents-view').width();
+						$('.contents-item').first().animate({marginLeft: -width}, 500, function(){
+							$(this).removeAttr('style').detach().appendTo('.contents-list');
+						});
+					}
+			});		
+		});
+		
 	</script>
 	</script>
 </body>

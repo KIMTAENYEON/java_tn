@@ -493,22 +493,22 @@
 	text-decoration: underline;
 }
 /* 좌우버튼 */
-.contents-r-box2 > .btn-box{
+.contents-r-box2 .btn-box{
 	width: 47px; height: 24px; position: absolute; top: 11px; right: 10px;
 }
-.contents-r-box2 > .btn-box > .prev-button,
-.contents-r-box2 > .btn-box > .next-button{
+.contents-r-box2 .btn-box .prev-button,
+.contents-r-box2 .btn-box .next-button{
 	width: 24px; height: 24px; box-sizing: border-box; border: 1px solid #e4e8eb; 
-	text-align: center; display: block; float: left;
+	text-align: center; display: block; float: left; background-color: #fff;
 }
-.contents-r-box2 > .btn-box > .next-button{
+.contents-r-box2 .btn-box .next-button{
 	margin-left: -1px;
 }
-.contents-r-box2 > .btn-box i{
+.contents-r-box2 .btn-box i{
 	font-size: 20px; color: gray; line-height: 23px;
 }
-.contents-r-box2 > .btn-box > .prev-button:hover i,
-.contents-r-box2 > .btn-box > .next-button:hover i{
+.contents-r-box2 .btn-box .prev-button:hover i,
+.contents-r-box2 .btn-box .next-button:hover i{
 	color: red;
 }
 /* 푸터 박스*/
