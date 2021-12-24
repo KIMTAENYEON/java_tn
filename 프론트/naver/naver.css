@@ -68,7 +68,7 @@
 }
 /* 메뉴창 */
 .menu-container-box{
-	height: 100%;
+	height: 100%; position: relative;
 }
 .menu-container{
 	padding: 11px 0; float: left; height: 100%; box-sizing: border-box;
@@ -77,7 +77,6 @@
 .menu-container .black-menu-box{
 	float: left;
 }
-
 .menu-container .green-menu-box .menu-item,
 .menu-container .black-menu-box .menu-item{
 	float: left; margin-left: 12px;
@@ -85,11 +84,20 @@
 .menu-container .green-menu-box .menu-item:first-child{
 	margin-left: 0;
 }
+.menu-container .black-menu-box .menu-item.set{
+	width: 70px; box-sizing: border-box; height: 30px; border: 1px solid #dae1e6;
+	background-color: #f7f9fa;
+}
+.menu-container .black-menu-box .menu-item.set.focus{
+	border: 1px solid #19ce60; background-color: #fff;
+}
 .menu-container .green-menu-box .menu-link,
-.menu-container .black-menu-box .menu-link{
+.menu-container .black-menu-box .menu-link,
+.menu-container .black-menu-box .menu-item{
 	color: #03c75a; font-weight: bold; font-size: 15px; line-height: 30px;
 }
-.menu-container .black-menu-box .menu-link{
+.menu-container .black-menu-box .menu-link,
+.menu-container .black-menu-box .menu-item{
 	color: #000;
 }
 .menu-container .icon-mail{
@@ -135,9 +143,61 @@
 /* 메뉴더보기 (안보이는 부분) */
 .menu-box .service-box{
 	position: absolute;	top: 52px;	right: 0;	left: 0;	display: none;
-	background-color: gray; height: 400px; z-index: 4;
+	background-color: #fff; z-index: 4;
 	padding: 20px 30px 22px;	border-top: 1px solid #e4e8eb; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
 }
+.menu-box .service-wrap-box{
+	width: 1128px; margin: 0 auto;
+	border: 1px solid #e4e8eb; border-width: 0 1px; display: flex;
+}
+.menu-box .service-list{
+	padding: 0 14px 0 15px; font-size: 13px; line-height: 26px; letter-spacing: -.25px;
+	height: 263px; border-left: 1px solid #e4e8eb;
+	width: 100%;
+}
+.menu-box .service-list:first-child{
+	border-left: none;
+}
+.menu-box .service-item{
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.menu-box .service-item:first-child{
+	font-weight: bold; margin-bottom: 3px;
+}
+.menu-box .service-item .check-menu{
+	margin: 4px 9px 0 0; vertical-align: top; display: none;
+}
+.menu-box .service-box.set .check-menu{ display: inline-block; }
+.menu-box .service-btn-box{display: none;}
+.menu-box .service-btn-box1, .menu-box .service-btn-box2{
+	width: 270px; height: 52px; position: absolute; top: 0; right: 30px;
+	background-color: #fff; padding: 11px 0; text-align: right; box-sizing: border-box;
+} 
+.menu-box .btn-service-save, .menu-box .btn-service-init,
+.menu-box .btn-service-all, .menu-box .btn-service-set{
+	display: inline-block; padding: 7px 13px 5px; border: 1px solid #dae1e6; 
+	border-radius: 15px; line-height: 16px; font-size: 12px; margin-left: 3px;
+}
+.menu-box .btn-service-save:hover, .menu-box .btn-service-init:hover,
+.menu-box .btn-service-all:hover, .menu-box .btn-service-set:hover{
+	text-decoration: underline;
+}
+.menu-box .btn-service-set::before{
+	display: inline-block; content: ''; width: 11px; height: 11px; 
+	margin: 2px 5px 0 0; 
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_bf79fd.png);
+	background-size: 444px 439px; background-position: -407px -306px;
+}
+.menu-box .btn-service-init::before{
+	display: inline-block; content: ''; width: 10px; height: 13px; 
+	margin-right: 6px;
+	background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_bf79fd.png);
+	background-size: 444px 439px; background-position: -408px -71px;
+}
+.menu-box .btn-green{
+	background-color: #19ce60; border-color: #00c73c; color: #fff;
+}
+.menu-box .service-btn-box2{ display: none;}
 /* 컨텐츠 박스 */
 .contents-box{
 	min-height: 1000px; padding: 20px 30px;
