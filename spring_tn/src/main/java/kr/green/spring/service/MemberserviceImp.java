@@ -19,4 +19,16 @@ public class MemberserviceImp implements MemberService{
 		System.out.println(user);
 		return null;
 	}
+
+	@Override
+	public MemberVO signup(MemberVO member) {
+		MemberVO user = memberDao.getMember(member.getMe_id());
+		if(user != null) {
+			return null;
+		}
+		memberDao.setMember(member.getMe_id(), member.getMe_pw(), member.getMe_name(), 
+				member.getMe_gender(), member.getMe_birth(), member.getMe_address(), member.getMe_phone());
+		return null;
+	}
+	
 }

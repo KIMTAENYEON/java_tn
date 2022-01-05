@@ -9,7 +9,7 @@
 <body>
 	<div class="body">
 		<div class="container">
-			<h1 class="text-center">회원가입</h1>
+			<h1 class="text-center">로그인</h1>
 			<form action="<%=request.getContextPath()%>/login" method="post">
 				<div class="form-group">
 				  <input type="text" class="form-control" name="me_id">
