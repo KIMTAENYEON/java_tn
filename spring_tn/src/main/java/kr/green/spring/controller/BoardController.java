@@ -26,7 +26,6 @@ public class BoardController {
 	public ModelAndView boardlist(ModelAndView mv) {
 		//등록된 모든 게시글을 보는 작업
 		List<BoardVO> list = boardService.getBoardList("일반");
-		System.out.println(list);
 		mv.addObject("list", list);
 		mv.setViewName("/board/list");
 		return mv;
@@ -57,6 +56,18 @@ public class BoardController {
 		//System.out.println(board);
 		//화면에게 게시글을 전달 
 		mv.addObject("board", board);
+		return mv;
+	}
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView boardDeleteGet(ModelAndView mv, Integer bd_num, HttpServletRequest request) {
+		//게시글 번호 확인 
+		//System.out.println("게시글 번호 : " + bd_num);
+		//로그인 유저 정보를 확인 
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		//System.out.println(user);
+		//서비스에게 게시글 번호와 로그인한 유저 정보를 주면서 게시글 삭제하라고 시킴
+		boardService.deleteBoard(bd_num, user);
+		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
 }
