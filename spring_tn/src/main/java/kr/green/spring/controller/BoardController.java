@@ -1,5 +1,7 @@
 package kr.green.spring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,10 @@ public class BoardController {
 	
 	@RequestMapping(value = "/list")
 	public ModelAndView boardlist(ModelAndView mv) {
+		//등록된 모든 게시글을 보는 작업
+		List<BoardVO> list = boardService.getBoardList("일반");
+		System.out.println(list);
+		mv.addObject("list", list);
 		mv.setViewName("/board/list");
 		return mv;
 	}
@@ -38,6 +44,19 @@ public class BoardController {
 		System.out.println(board);
 		boardService.registerBoard(board);
 		mv.setViewName("/board/register");
+		return mv;
+	}
+	@RequestMapping(value = "/detail")
+	public ModelAndView boardDetail(ModelAndView mv, Integer bd_num) {
+		mv.setViewName("/board/detail");
+		//게시글 번호 확인
+		//System.out.println("게시글 번호 : " + bd_num);
+		//게시글 = boardService.게시글가져오기(게시글번호);
+		BoardVO board = boardService.getBoard(bd_num);
+		//가져온 게시글 확인 
+		//System.out.println(board);
+		//화면에게 게시글을 전달 
+		mv.addObject("board", board);
 		return mv;
 	}
 }
