@@ -42,7 +42,7 @@ public class BoardController {
 		board.setBd_type("일반");
 		System.out.println(board);
 		boardService.registerBoard(board);
-		mv.setViewName("/board/register");
+		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
 	@RequestMapping(value = "/detail")
@@ -68,6 +68,33 @@ public class BoardController {
 		//서비스에게 게시글 번호와 로그인한 유저 정보를 주면서 게시글 삭제하라고 시킴
 		boardService.deleteBoard(bd_num, user);
 		mv.setViewName("redirect:/board/list");
+		return mv;
+	}
+	@RequestMapping(value = "/modify", method=RequestMethod.GET)
+	public ModelAndView boardModify(ModelAndView mv, Integer bd_num, HttpServletRequest request) {
+		//게시글을 검색해서 화면에 전달 => 서비스에게 일을 시킴 
+		//게시글 번호를 확인 
+		//System.out.println("게시글 번호 : " + bd_num);
+		//서비스에게 번호와 로그인 회원 정보를 알려주면서
+		//번호와 작성자가 일치하는 게시글을 가져오라고 시킴
+		//컨트롤러는 서비스가 보내준 게시글 정보를 가지고 정상 접근인지 아닌지 확인 
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		//게시글 = 서비스.게시글가져오기(번호, 로그인 정보);
+		BoardVO board = boardService.getBoard(bd_num, user);
+		
+		//게시글이 없으면 
+			//1. 번호가 잘못된 경우
+			//2. 본인이 작성자가 아닌 경우
+		if(board == null) {
+			mv.setViewName("redirect:/board/list");
+		}else {
+			mv.addObject("board", board);
+			mv.setViewName("board/modify");
+		}
+		//서비스에게 번호를 알려주면서 게시글을 가져오라고 시킴 
+		//서비스가 보내준 게시글의 작성자와 로그인한 회원 아이디가 일치하는지 확인
+		//컨트롤러가 서비스가 보내준 게시글 정보를 가지고 추가 확인 
+		mv.setViewName("/board/modify");
 		return mv;
 	}
 }

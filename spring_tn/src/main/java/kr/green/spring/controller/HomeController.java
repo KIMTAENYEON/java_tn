@@ -32,13 +32,13 @@ public class HomeController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView loginGet(ModelAndView mv, MemberVO member) {	
-		System.out.println("/login:get : " + member);
+		//System.out.println("/login:get : " + member);
 		mv.setViewName("/member/login");
 		return mv;
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {	
-		System.out.println("/login:post : " + member);
+		//System.out.println("/login:post : " + member);
 		MemberVO user = memberService.login(member);
 		if(user == null) {
 			mv.setViewName("redirect:/login");
@@ -67,7 +67,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logoutGet(ModelAndView mv, HttpServletRequest requst) {	
-		System.out.println("/logout:get : ");
+		//System.out.println("/logout:get : ");
 		requst.getSession().removeAttribute("user");
 		mv.setViewName("redirect:/");	
 		return mv;
