@@ -13,8 +13,59 @@
 7. DB연동 테스트 
 	MemberService 인터페이스 생성 
 	MemberServiceImp 클래스 생성
+		MemberService 구현
+		@Service를 추가
 	MemberDAO 인터페이스 생성 
-	MemberMapper.xml에 샘플 코드 추가 
+	src/main/resources 폴더에 mappers 폴더를 생성
+		MemberMapper.xml 파일 생성 후 샘플 코드 추가 
+		namespace 부분을 현재 프로젝트에 알맞게 수정 
+		mapper태그 안에 예제 코드를 삭제 
 	MemberVO 클래스 생성 
-	컨트롤러에 샘플 코드 추가 및 테스트 
-	
+		테이블 속성과 멤버변수 이름이 같게 생성 
+		getter/setter 생성과 toString을 오버라이딩함 
+	컨트롤러에 멤버 변수로 MemberService 추가 
+		@Autowired 이용 MemberService memberService;
+	MemberService에 멤버변수로 MemberDAO 추가
+		@Autowired 이용 MemberDAO memberDao;
+	서버를 재가동하여 에러가 안나는지 테스트 
+	컨트롤러/서비스/다오/매퍼에 샘플 코드 추가 및 테스트 
+		DB에 샘플 데이터를 추가 	
+
+8. 회원가입 기능 구현(비밀번호 암호화 적용)	(github.com/st8324/Docs 참고)
+	header.jsp 회워가입 링크 추가
+	컨트롤러에 회원가입 화면을 보여줄 수 있는 메소드를 추가 
+		signup에 GET방식
+		보여줄 화면은 /member/signup.jsp로 설정 
+	회원가입 화면파일을 생성 (member 폴더에 signup.jsp를 생성)
+		회원가입 화면을 구성 
+	컨트롤러에 회원가입을 처리하는 메소드를 추가 
+		/signup에 POST방식
+		회원가입이 정상적으로 진행되면 메인페이지로 이동을 시킴
+		회원가입이 정상적으로 진행되지 않으면 회원가입페이지로 이동을 시킴
+	컨트롤러에 화면에서 전달한 회원정보를 받아서 확인  
+		매개변수를 추가
+		생일과 관련해서 에러가 발생할 수 있음 
+			원인 : 화면에서는 yyyy-mm-dd로 된 문자열을 전송하는데 생일이 Date클래스로
+			 되어 있으면 자동으로 변환이 안됨 String이 Date로 형변환이 안됨.
+			해결방법 : setMe_birth(String date)로 setter를 수정하여 문자열로 된 날짜를
+			 Date로 변환하는 코드를 작성해야 함 
+		화면에 input태크 select태그 등에 name을 MemberVO의 매개변수와 일치하게 설정
+	컨트롤러에서 회원정보를 서비스에게 주면서 회원가입하라고 시킴 
+		이때 서비스는 회원가입 진행후 가입이 성공했는지 실패했는지 컨트롤러에게 알려줌
+	서비스에 회원가입 메소드 추가 
+		컨트롤러에서 에러나는 부분 마우스 호버 create method 클릭 
+	서비스임플에 회원가입 메소드 추가 
+		서비스임플에서 에러나는 부분 마우스 호버 add unimplimented 클릭
+	서비스임플에서 회원가입 기능을 구현 
+		비밀번호 암호화	(github.com/st8324/Docs 참고)
+		다오에게 회원가입 정보를 전달하면서 가입하라고 시킴
+	다오에 회원가입 메소드 추가
+		서비스임플에서 에러나는 부분 호버후 create method 클릭
+		@Param("이름")을 매개변수 앞에 추가 
+	매퍼에 쿼리문 구현 
+		id에 다오에 추가한 메소드명을 입력 
+		쿼리문 구현
+			매개변수로 넘어오는 값은 #{ }을 이용하고, 
+			 넘겨주는 값이 정수나 문자열이 아니면 #{객체명.멤버변수명}으로 호출
+9. 로그인 기능 구현 (Interceptor를 이용한 로그인 유지 적용)
+
