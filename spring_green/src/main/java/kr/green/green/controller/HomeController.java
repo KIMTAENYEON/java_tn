@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.green.service.MemberService;
+import kr.green.green.vo.MemberVO;
 
 @Controller
 public class HomeController {
@@ -17,8 +18,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView homeGet(ModelAndView mv) {
 		mv.setViewName("/main/home");
-		mv.addObject("serverTime", "데이터" );
-		
+		//아래 코드는 연동 확인 후 지울 코드
+		MemberVO user = memberService.test("qwe");
+		System.out.println(user);
 		return mv;
 	}
 	
