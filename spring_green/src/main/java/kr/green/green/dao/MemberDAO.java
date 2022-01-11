@@ -6,6 +6,8 @@ import kr.green.green.vo.MemberVO;
 
 public interface MemberDAO {
 
-	MemberVO test(@Param("id")String id);
+	MemberVO selectMember(@Param("me_id")String me_id);
+
+	void insertMember(@Param("user")MemberVO user);
 
 }
