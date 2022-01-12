@@ -18,4 +18,11 @@ public class BoardServiceImp implements BoardService{
 	public List<BoardVO> getBoardList(String bd_type) {
 		return boardDao.selectBoardList(bd_type);
 	}
+
+	@Override
+	public BoardVO getBoard(Integer bd_num) {
+		if(bd_num == null || bd_num <= 0)
+			return null;
+		return boardDao.selectBoard(bd_num);
+	}
 }
