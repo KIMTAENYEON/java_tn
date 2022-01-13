@@ -51,4 +51,28 @@ public class BoardController {
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
+	@RequestMapping(value = "/board/modify", method=RequestMethod.GET )
+	public ModelAndView boardModifyGet(ModelAndView mv, Integer bd_num, HttpServletRequest request) {
+		//System.out.println(bd_num);
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		BoardVO board = boardService.getBoard(bd_num);
+		if(user != null && board != null &&
+			board.getBd_me_id().equals(user.getMe_id())) {
+			mv.addObject("board", board);
+			mv.setViewName("/board/modify");				
+		}else {
+			mv.setViewName("redirect:/board/detail");			
+		}
+		return mv;
+	}
+	@RequestMapping(value = "/board/modify", method=RequestMethod.POST )
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
+		//System.out.println(board);
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		//System.out.println(user);
+		boardService.modifyBoard(board, user);
+		mv.addObject("bd_num", board.getBd_num());
+		mv.setViewName("redirect:/board/detail");
+		return mv;
+	}
 }

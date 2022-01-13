@@ -27,7 +27,7 @@
 			  <label>내용</label>
 			  <textarea class="form-control" rows="10" readonly>${board.bd_content}</textarea>
 			</div>
-			<c:if test="${user != null && user.me_id == board.bd_me_id}">
+			<c:if test="${user.me_id == board.bd_me_id}">
 				<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">
 					<button class="btn btn-outline-warning">수정</button>
 				</a>
