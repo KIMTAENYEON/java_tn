@@ -19,8 +19,8 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public void registerBoard(BoardVO board) {
 		if(board == null
-				|| board.getBd_title() == null
-				|| board.getBd_content() == null
+				|| board.getBd_title().trim().length() == 0
+				|| board.getBd_content().trim().length() == 0
 				|| board.getBd_me_id() == null)
 			return;
 		boardDao.insertBoard(board);

@@ -7,11 +7,8 @@
 	<title>Home</title>
 </head>
 <body>
-	<div style="height: 800px">
-		<h1>
-			Hello world!  
-		</h1>
-		<P> ${setHeader}. </P>
+	<div class="body">
+		<h1>메인</h1>
 	</div>
 </body>
 </html>
