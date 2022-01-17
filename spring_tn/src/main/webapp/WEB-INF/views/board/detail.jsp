@@ -25,8 +25,8 @@
 			</div>
 			<div class="form-group">
 				<c:if test="${files != null && files.size() != 0}">
+					<label>첨부파일</label>
 					<c:forEach items="${files}" var="file">
-						<label>첨부파일</label>
 						<a href="<%=request.getContextPath()%>/board/download?fileName=${file.fi_name}" class="form-control">
 							${file.fi_ori_name}
 						</a>
