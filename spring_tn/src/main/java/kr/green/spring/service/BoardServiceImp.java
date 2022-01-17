@@ -68,7 +68,8 @@ public class BoardServiceImp implements BoardService{
 		//다오에게 수정된 게시글을 업데이트하라고 시킴 
 		//boardDao.게시글삭제(게시글 번호)
 		boardDao.deleteBoard(bd_num);
-		
+		List<FileVO> fileList = boardDao.selectFileList(bd_num);
+		deleteFile(fileList);
 //		board.setBd_del("Y");
 //		board.setBd_del_date(new Date());
 //		boardDao.deleteBoard(board);
