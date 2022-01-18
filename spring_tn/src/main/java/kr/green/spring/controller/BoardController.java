@@ -38,9 +38,9 @@ public class BoardController {
 	public ModelAndView boardlist(ModelAndView mv, Criteria cri) {
 		cri.setPerPageNum(5);
 		//등록된 게시글 중 현재 페이지와 일치하는 게시글을 가져옴
-		List<BoardVO> list = boardService.getBoardList("일반", cri);
+		List<BoardVO> list = boardService.getBoardList(cri);
 		//페이지메이커를 만들어서 화면에 전달해야 함
-		int totalCount = boardService.getTotalCount("일반", cri);
+		int totalCount = boardService.getTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
@@ -48,7 +48,8 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView boardRegisterGet(ModelAndView mv, Integer bd_ori_num) {
+	public ModelAndView boardRegisterGet(ModelAndView mv, Integer bd_ori_num, String bd_type) {
+		mv.addObject("bd_type", bd_type);
 		mv.addObject("bd_ori_num", bd_ori_num);
 		mv.setViewName("/board/register");
 		return mv;
@@ -58,9 +59,9 @@ public class BoardController {
 			HttpServletRequest request, List<MultipartFile> files2) throws Exception {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		board.setBd_me_id(user.getMe_id());
-		board.setBd_type("일반");
 		//System.out.println(board);
 		boardService.registerBoard(board, files2);
+		mv.addObject("type", board.getBd_type());
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
