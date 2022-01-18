@@ -21,7 +21,7 @@
 			  <input type="text" class="form-control" name="bd_reg_date" readonly value="${board.bd_reg_date_str}">
 			</div>
 			<div class="form-group">
-			  <textarea class="form-control" name="bd_content" rows="10" readonly>${board.bd_content}</textarea>
+			  <div class="form-control" style="min-height: 400px; height: auto;">${board.bd_content}</div>
 			</div>
 			<div class="form-group">
 				<c:if test="${files != null && files.size() != 0}">
