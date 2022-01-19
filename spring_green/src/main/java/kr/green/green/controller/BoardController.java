@@ -57,11 +57,11 @@ public class BoardController {
 	}
 	@RequestMapping(value = "/board/register", method=RequestMethod.POST )
 	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, 
-			HttpServletRequest request, List<MultipartFile> files) {
+			HttpServletRequest request, List<MultipartFile> files2) {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		board.setBd_type("일반");
 		//System.out.println(board);
-		boardService.registerBoard(board, user, files);
+		boardService.registerBoard(board, user, files2);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
@@ -70,8 +70,10 @@ public class BoardController {
 		//System.out.println(bd_num);
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		BoardVO board = boardService.getBoard(bd_num);
+		List<FileVO> fileList = boardService.getFileList(bd_num);
 		if(user != null && board != null &&
 			board.getBd_me_id().equals(user.getMe_id())) {
+			mv.addObject("fileList", fileList);
 			mv.addObject("board", board);
 			mv.setViewName("/board/modify");				
 		}else {
@@ -80,11 +82,12 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value = "/board/modify", method=RequestMethod.POST )
-	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request,
+			List<MultipartFile> files2, Integer [] fileNums) {
 		//System.out.println(board);
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		//System.out.println(user);
-		boardService.modifyBoard(board, user);
+		boardService.modifyBoard(board, user, files2, fileNums);
 		mv.addObject("bd_num", board.getBd_num());
 		mv.setViewName("redirect:/board/detail");
 		return mv;

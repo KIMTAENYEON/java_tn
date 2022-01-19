@@ -16,7 +16,7 @@ public interface BoardService {
 
 	void registerBoard(BoardVO board, MemberVO user, List<MultipartFile> files);
 
-	void modifyBoard(BoardVO board, MemberVO user);
+	void modifyBoard(BoardVO board, MemberVO user, List<MultipartFile> files, Integer[] fileNums);
 
 	void deleteBoard(Integer bd_num, MemberVO user);
 

@@ -1,5 +1,7 @@
 package kr.green.green.service;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public void modifyBoard(BoardVO board, MemberVO user) {
+	public void modifyBoard(BoardVO board, MemberVO user, List<MultipartFile> files, Integer[] fileNums) {
 		if(board == null || user == null || board.getBd_num() <= 0) 
 			return;
 		if(board.getBd_title() == null || board.getBd_title().trim().length() == 0)
@@ -70,6 +72,33 @@ public class BoardServiceImp implements BoardService{
 		if(!dbBoard.getBd_me_id().equals(user.getMe_id()))
 			return;
 		boardDao.updateBoard(board);
+		List<FileVO> fileList = boardDao.selectFileList(board.getBd_num());
+		List<FileVO> remainFileList = new ArrayList<FileVO>();
+		//가져온 첨부파일들 중에서 fileNums에 일치하는 번호가 있으면 remainFileList에 추가
+		//유지해야할 첨부파일이 있는 경우
+		if(fileNums != null && fileNums.length != 0) {
+			for(FileVO tmp : fileList) {
+				for(Integer tmpNum : fileNums) {
+					if(tmp.getFi_num() == tmpNum) {
+						remainFileList.add(tmp);
+					}
+				}
+			}
+			//게시글의 전체 첨부파일중 유지해야할 첨부파일을 제외한 첨부파일을 만듬 
+			fileList.removeAll(remainFileList);
+		}
+		//실제 서버에서 삭제
+		if(fileList != null && fileList.size() != 0) {
+			for(FileVO tmp : fileList) {
+				String fileName = tmp.getFi_name().replace("/", File.separator);
+				File file = new File(uploadPath + fileName);
+				boardDao.deleteFile(tmp);
+				if(file.exists()) {
+					file.delete();
+				}
+			}
+		}
+		uploadFile(files, board.getBd_num());
 	}
 
 	@Override
@@ -90,4 +119,19 @@ public class BoardServiceImp implements BoardService{
 		return boardDao.selectFileList(bd_num);
 	}
 
+	private void uploadFile(List<MultipartFile> files, int bd_num) {
+		if(files == null || files.size() == 0)
+			return;
+		for(MultipartFile tmpFile : files) {
+			if(tmpFile != null && tmpFile.getOriginalFilename().length() != 0) {
+				try {
+					String path = UploadFileUtils.uploadFile(uploadPath, tmpFile.getOriginalFilename(), tmpFile.getBytes());
+					FileVO fileVo= new FileVO(tmpFile.getOriginalFilename(), path, bd_num);
+					boardDao.insertFile(fileVo);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
