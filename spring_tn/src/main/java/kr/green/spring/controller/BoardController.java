@@ -2,6 +2,7 @@ package kr.green.spring.controller;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,10 +61,19 @@ public class BoardController {
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		board.setBd_me_id(user.getMe_id());
 		//System.out.println(board);
-		boardService.registerBoard(board, files2);
-		mv.addObject("type", board.getBd_type());
-		mv.setViewName("redirect:/board/list");
-		return mv;
+		List<String> authorityAdmin = new ArrayList<String>();
+		authorityAdmin.add("관리자");
+		authorityAdmin.add("슈퍼 관리자");
+		//공지사항을 작성하는데 권한이 회원인 경우
+		if(board.getBd_type().equals("공지") && authorityAdmin.indexOf(user.getMe_authority()) < 0) {
+			mv.addObject("type", "공지");
+			mv.setViewName("redirect:/board/list");
+		}else {
+			boardService.registerBoard(board, files2);
+			mv.addObject("type", board.getBd_type());
+			mv.setViewName("redirect:/board/list");
+		}
+		return mv;		
 	}
 	@RequestMapping(value = "/detail")
 	public ModelAndView boardDetail(ModelAndView mv, Integer bd_num) {
@@ -103,7 +113,6 @@ public class BoardController {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		//게시글 = 서비스.게시글가져오기(번호, 로그인 정보);
 		BoardVO board = boardService.getBoard(bd_num, user);
-		
 		//게시글이 없으면 
 			//1. 번호가 잘못된 경우
 			//2. 본인이 작성자가 아닌 경우
@@ -137,7 +146,7 @@ public class BoardController {
 		boardService.updateBoard(board, files2, fileNums);
 		//게시글 번호를 넘겨줌
 		mv.addObject("bd_num", board.getBd_num());
-		mv.setViewName("redirect:/board/detail");
+		mv.setViewName("redirect:/board/detail");		
 		return mv;
 	}
 	@ResponseBody
