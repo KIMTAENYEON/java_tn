@@ -37,7 +37,7 @@ public class BoardController {
 		cri.setPerPageNum(5);
 		List<BoardVO> list = boardService.getBoardList("일반", cri);
 		//System.out.println(list);
-		int totalCount = boardService.getTotalCount("일반");
+		int totalCount = boardService.getTotalCount("일반", cri);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
