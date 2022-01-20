@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PageMaker {
 	//총 게시글 갯수 endPage 결정할 때 활용, 게시글 번호를 연속되게 출력할 때 활용 
-	private int totalCount;
+	private int totalCount;	//총 게시글 갯수
 	private int startPage; 	//시작 페이지
 	private int endPage;		//마지막페이지
 	private boolean prev;		//이전 버튼 활성화 여부

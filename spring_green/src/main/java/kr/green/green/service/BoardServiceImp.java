@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.green.dao.BoardDAO;
+import kr.green.green.pagination.Criteria;
 import kr.green.green.utils.UploadFileUtils;
 import kr.green.green.vo.BoardVO;
 import kr.green.green.vo.FileVO;
@@ -23,8 +24,8 @@ public class BoardServiceImp implements BoardService{
 	String uploadPath = "D:\\JAVA_TN\\upload";
 
 	@Override
-	public List<BoardVO> getBoardList(String bd_type) {
-		return boardDao.selectBoardList(bd_type);
+	public List<BoardVO> getBoardList(String bd_type, Criteria cri) {
+		return boardDao.selectBoardList(bd_type, cri);
 	}
 
 	@Override
@@ -99,10 +100,11 @@ public class BoardServiceImp implements BoardService{
 		BoardVO Board = boardDao.selectBoard(bd_num);
 		if(Board == null)
 			return;
-		if(user != null && Board.getBd_me_id().equals(user.getMe_id()))
+		if(user != null && Board.getBd_me_id().equals(user.getMe_id())) {
 			boardDao.deleteBoard(bd_num);
-		List<FileVO> fileList = boardDao.selectFileList(bd_num);
-		deleteFile(fileList);
+			List<FileVO> fileList = boardDao.selectFileList(bd_num);
+			deleteFile(fileList);
+		}
 	}
 
 	@Override
@@ -138,5 +140,10 @@ public class BoardServiceImp implements BoardService{
 				}
 			}
 		}
+	}
+
+	@Override
+	public int getTotalCount(String type) {	
+		return boardDao.selectTotalCount(type);
 	}
 }
