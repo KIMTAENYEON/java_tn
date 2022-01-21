@@ -10,7 +10,7 @@
 <body>
 	<div class="body">
 		<c:if test="${board != null}">
-			<h1>게시글 상세</h1>
+			<h1>${board.typeTitle }</h1>
 			<div class="form-group">
 			  <label>제목</label>
 			  <input type="text" class="form-control" readonly value="${board.bd_title}">
@@ -44,13 +44,13 @@
 				</a>
 			</c:if>
 			<!-- 현재 보고 있는 게시글이 원본 게시글 -->
-			<c:if test="${board.bd_ori_num == board.bd_num}">
+			<c:if test="${board.bd_ori_num == board.bd_num && (board.bd_type == '일반')}">
 				<a href="<%=request.getContextPath()%>/board/register?bd_ori_num=${board.bd_num}">
 					<button class="btn btn-outline-primary">답변</button>
 				</a>
 			</c:if>
 			<!-- 현재 보고 있는 게시글이 답변 게시글  -->
-			<c:if test="${board.bd_ori_num != board.bd_num}">
+			<c:if test="${board.bd_ori_num != board.bd_num && (board.bd_type == '일반')}">
 				<a href="<%=request.getContextPath()%>/board/register?bd_ori_num=${board.bd_ori_num}">
 					<button class="btn btn-outline-primary">답변</button>
 				</a>

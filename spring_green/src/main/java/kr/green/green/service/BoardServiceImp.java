@@ -24,8 +24,8 @@ public class BoardServiceImp implements BoardService{
 	String uploadPath = "D:\\JAVA_TN\\upload";
 
 	@Override
-	public List<BoardVO> getBoardList(String bd_type, Criteria cri) {
-		return boardDao.selectBoardList(bd_type, cri);
+	public List<BoardVO> getBoardList(Criteria cri) {
+		return boardDao.selectBoardList(cri);
 	}
 
 	@Override
@@ -42,6 +42,8 @@ public class BoardServiceImp implements BoardService{
 		if(board.getBd_title() == null || board.getBd_title().trim().length() == 0)
 			return;
 		if(user.getMe_id() == null || user.getMe_id().trim().length() == 0)
+			return;
+		if(!board.isAccessAuthority(user.getMe_authority()))
 			return;
 		board.setBd_me_id(user.getMe_id());
 		boardDao.insertBoard(board);
@@ -143,7 +145,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public int getTotalCount(String type, Criteria cri) {	
-		return boardDao.selectTotalCount(type, cri);
+	public int getTotalCount(Criteria cri) {	
+		return boardDao.selectTotalCount(cri);
 	}
 }

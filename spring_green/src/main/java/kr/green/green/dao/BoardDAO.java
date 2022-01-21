@@ -10,7 +10,7 @@ import kr.green.green.vo.FileVO;
 
 public interface BoardDAO {
 
-	List<BoardVO> selectBoardList(@Param("bd_type")String bd_type, @Param("cri")Criteria cri);
+	List<BoardVO> selectBoardList(@Param("cri")Criteria cri);
 
 	BoardVO selectBoard(@Param("bd_num")Integer bd_num);
 
@@ -26,6 +26,6 @@ public interface BoardDAO {
 
 	void deleteFile(@Param("file")FileVO tmp);
 
-	int selectTotalCount(@Param("type")String type, @Param("cri")Criteria cri);
+	int selectTotalCount(@Param("cri")Criteria cri);
 
 }
