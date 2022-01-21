@@ -28,4 +28,6 @@ public interface BoardDAO {
 
 	int selectTotalCount(@Param("cri")Criteria cri);
 
+	void updateViews(@Param("bd_num")Integer bd_num);
+
 }
