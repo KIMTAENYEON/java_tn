@@ -94,6 +94,10 @@
 	    });
 	});
 	
+	$('[name=id]').change(function() {
+		idCheck = false;
+	});
+	
     $( "#birth" ).datepicker();
 	$( "#birth" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
 
