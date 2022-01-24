@@ -54,14 +54,7 @@
 			<h1>없는 게시글이거나 삭제된 게시글입니다.</h1>
 		</c:if>
 		<hr class="mt-3">
-		<div class="comment-list mt-3">
-			<div class="comment-box">
-				<div class="co_me_id mt-2">qwe</div>
-				<div class="co_content mt-2">댓글 내용</div>
-				<div class="co_reg_date mt-2">2022-01-24</div>
-				<button class="btn-reply-comment btn btn-outline-success">답글</button>
-			</div>
-		</div>
+		<div class="comment-list mt-3"></div>
 		<div class="comment-pagination mt-3"></div>
 		<div class="comment-box mt-3">
 			<div class="input-group mb-3">
@@ -124,6 +117,22 @@
 			var page = $(this).data('page');
 			readComment(co_bd_num, page);
 		});
+		//댓글 삭제
+		$(document).on('click', '.comment-list .btn-del-comment', function(){
+			var co_num = $(this).data('num');
+			if(co_num != ''){
+				$.ajax({
+			        async:false,
+			        type:'GET',
+			        url:"<%=request.getContextPath()%>/comment/delete?co_num="+co_num,
+			        dataType:"json",
+			        success : function(res){
+			        	var co_bd_num = '${board.bd_num}';
+			        	readComment(co_bd_num, 1);
+			        }
+			    });
+			}
+		});
 		//화면 로딩 후 댓글과 댓글 페이지네이션 배치 
 		var co_bd_num = '${board.bd_num}'
 		readComment(co_bd_num, 1);
@@ -136,14 +145,21 @@
 			var minute = date.getMinutes();
 			return year + "-" + month + "-" + day + "-" + hour + ":" + minute;
 		}
-		function createCommentStr(co_me_id, co_content, co_reg_date) {
-			return '<div class="comment-box">' +
+		function createCommentStr(co_me_id, co_content, co_reg_date, co_num) {
+			var str = '<div class="comment-box">' +
 				'<div class="co_me_id mt-2">' + co_me_id + '</div>' +
 				'<div class="co_content mt-2">' + co_content + '</div>' +
 				'<div class="co_reg_date mt-2">' + co_reg_date + '</div>' +
-				'<button class="btn-reply-comment btn btn-outline-success">답글</button>' +
+				'<button class="btn-reply-comment btn btn-outline-success">답글</button>';
+				if('${user.me_id}' == co_me_id){
+					str+=
+						'<button class="btn-mod-comment btn btn-outline-warning ml-2" data-num="'+co_num+'">수정</button>'+
+						'<button class="btn-del-comment btn btn-outline-danger ml-2" data-num="'+co_num+'">삭제</button>';
+				}
+				str+=
 				'<hr>' + 
 			'</div>';
+			return str;
 		}
 		function readComment(co_bd_num, page) {
 			if(co_bd_num != ''){
@@ -158,7 +174,7 @@
 			        	for(tmp of res.list){
 			        		var date = new Date(tmp.co_reg_date)
 			        		str += 
-			        			createCommentStr(tmp.co_me_id, tmp.co_content, getDateStr(date))
+			        			createCommentStr(tmp.co_me_id, tmp.co_content, getDateStr(date), tmp.co_num)
 			        	}
 			        	$('.comment-list').html(str);
 			        	//페이지네이션 생성
