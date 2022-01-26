@@ -60,8 +60,18 @@
 		<c:if test="${board == null}">
 			<h1>없는 게시글이거나 삭제된 게시글입니다.</h1>
 		</c:if>
+		<div class="comment-list">
+			
+	  	</div>
+	  	<div class="comment-pagination">
+	  		<ul class="pagination justify-content-center">
+			  <li class="page-item"><a class="page-link" href="javascript:void(0);">이전</a></li>
+			  <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+			  <li class="page-item"><a class="page-link" href="javascript:void(0);">다음</a></li>
+			</ul>
+	  	</div>
 		<div class="input-group mb-3 mt-3">
-		  <textarea class="form-control co_content" placeholder="댓글입력"></textarea>
+		  <textarea class="form-control text_content" placeholder="댓글입력"></textarea>
 		  <div class="input-group-append">
 		    <button class="btn btn-outline-success btn-comment-insert">등록</button>
 		  </div>
@@ -76,7 +86,7 @@
 					alert('로그인 후 댓글 등록이 가능합니다.');
 					return;
 				}
-				var co_content = $('.co_content').val();
+				var co_content = $('.text_content').val();
 				var co_bd_num = '${board.bd_num}';
 				if(co_content == ''){
 					alert('댓글 내용을 입력하세요.')
@@ -89,14 +99,40 @@
 				};
 				commentService.insert(comment, '/comment/insert', function(res) {
 					if(res == true){
-		        		$('.co_content').val('');
+		        		$('.text_content').val('');
 		        		alert('댓글 등록이 완료되었습니다.');
 		        	}else{
 		        		alert('댓글 등록에 실패했습니다.')
 		        	};
 				});
 			});
+			
+			commentService.list('/comment/list?page=1&bd_num='+'${board.bd_num}', function(res){
+				console.log(res);
+			});
 		});
+		function createComment(comment, me_id) {
+			var str = '';
+			str += '<div class="comment-box clearfinx">'
+			if(comment.co_ori_num != comment.co_num){
+				str +=	 '<div class="float-left" style="width: 24px">└</div>'
+				str +=	 '<div class="float-left" style="width: calc(100% - 24px)">'
+			}else{
+				str +=	 '<div class="float-left" style="width: 100%">'
+			}
+			str +=	  	'<div class="co_me_id">'+comment.co_me_id+'</div>'				
+			str +=	 	'<div class="co_content">'+comment.co_content+'</div>'
+			str +=	  	'<div class="co_reg_date">'+co_reg_date+'</div>'
+			if(comment.co_ori_num == comment.co_num)
+				str +=	  	'<button class="btn btn-outline-success btn-rep-comment">답글</button>'
+			if(comment.co_me_id == me_id){
+				str +=	  	'<button class="btn btn-outline-warning btn-mod-comment">수정</button>'
+				str +=	  	'<button class="btn btn-outline-danger btn-del-comment">삭제</button>'
+			}
+			str +=   '</div>'
+			str +=   '<hr class="float-left" style="width: 100%">'
+			str += '</div>'
+		}
 	</script>
 </body>
 </html>

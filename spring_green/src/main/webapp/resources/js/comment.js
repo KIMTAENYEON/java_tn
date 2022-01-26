@@ -6,7 +6,7 @@ let commentService = (function(){
 		//contextPath 설정
 		this.contextPath = contextPath;
 	}
-	function ajaxGet(vo, url, success){
+	function ajaxPost(vo, url, success){
 		$.ajax({
 	        async:false,
 	        type:'POST',
@@ -19,10 +19,22 @@ let commentService = (function(){
 	        }
 	    });
 	}
+	function ajaxGet(url, success){
+		$.ajax({
+	        async:false,
+	        type:'GET',
+	        url:this.contextPath + url,
+	        dataType:"json",
+	        success : function(res){
+	        	success(res);
+	        }
+	    });
+	}
 	return{
 		name : 'commentService',
 		contextPath : '',
 		setContextPath : setContextPath,
-		insert : ajaxGet
+		insert : ajaxPost,
+		list : ajaxGet
 	}
 })();
