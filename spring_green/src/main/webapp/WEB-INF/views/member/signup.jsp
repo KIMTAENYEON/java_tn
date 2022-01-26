@@ -27,6 +27,9 @@
 				<input type="text" class="form-control" placeholder="아이디" name="me_id" value="${user.me_id}">
 			</div>
 			<div class="form-group">
+				<button id="idCheck" type="button" class="btn btn-outline-success col-12">중복확인</button>
+			</div>
+			<div class="form-group">
 				<input type="password" class="form-control" placeholder="비밀번호" name="me_pw" value="${user.me_pw}">
 			</div>
 			<div class="form-group">
@@ -69,6 +72,28 @@
 		</form>
 	</div>
 	<script>
+	var idCheck = false;
+	$('#idCheck').click(function() {
+		var id = $('[name=me_id]').val();
+	    $.ajax({
+	        async:false,
+	        type:'GET',
+	        url:"<%=request.getContextPath()%>/idCheck?me_id="+id,
+	        success : function(res){
+	            console.log(res);
+	            idCheck = res == 'true' ? true : false;
+	            if(idCheck)
+	            	alert('사용 가능한 아이디입니다.')
+	            else
+	            	alert('이미 사용 중인 아이디입니다.')
+	        }
+	    });
+	});
+	$('[name=me_id]').change(function() {
+		idCheck = false;
+	});
+	
+	//데이트피커
     $( "#birth" ).datepicker();
 	$( "#birth" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
 
@@ -85,6 +110,10 @@
 			alert('약관동의를 선택하세요. ')
 			$('[name=agree]').focus();
 			return false; 
+		}
+		if(!idCheck){
+			alert('아이디 중복확인을 하세요.')
+			return false;
 		}else if(id == ''){
 			alert('아이디를 입력하세요. ')
 			$('[name=me_id]').focus();
@@ -108,7 +137,6 @@
 		}else if(!gender){
 			alert('성별을 선택하세요. ')
 			$('[name=me_gender]').focus();
-			return false;
 		}
 		var address = $('#address').val() + $('#detailAddress').val();
 		$('[name=me_address]').val(address);

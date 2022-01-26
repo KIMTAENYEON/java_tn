@@ -48,4 +48,15 @@ public class MemberServiceImp implements MemberService{
 		memberDao.insertMember(user);
 		return true;
 	}
+
+	@Override
+	public String idCheck(String id) {
+		if(id == null || id.trim().length() == 0)
+			return "false";
+		MemberVO dbUser = memberDao.selectMember(id);
+		if(dbUser == null)
+			return "true";
+		else
+			return "false";
+	}
 }

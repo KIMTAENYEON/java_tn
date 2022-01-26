@@ -94,7 +94,7 @@
 	    });
 	});
 	
-	$('[name=id]').change(function() {
+	$('[name=me_id]').change(function() {
 		idCheck = false;
 	});
 	
@@ -109,7 +109,7 @@
 			$('[name=agree]').focus();
 			return false; 
 		}
-		if(idCheck){
+		if(!idCheck){
 			alert('아이디 중복검사를 하세요.')
 			return false;
 		}
