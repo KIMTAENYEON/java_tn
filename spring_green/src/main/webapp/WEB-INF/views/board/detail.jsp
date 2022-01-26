@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/comment.js"></script>
 </head>
 <body>
 	<div class="body">
@@ -59,6 +60,43 @@
 		<c:if test="${board == null}">
 			<h1>없는 게시글이거나 삭제된 게시글입니다.</h1>
 		</c:if>
+		<div class="input-group mb-3 mt-3">
+		  <textarea class="form-control co_content" placeholder="댓글입력"></textarea>
+		  <div class="input-group-append">
+		    <button class="btn btn-outline-success btn-comment-insert">등록</button>
+		  </div>
+		</div>
 	</div>
+	<script>
+		commentService.setContextPath('<%=request.getContextPath()%>');
+		$(function(){
+			$('.btn-comment-insert').click(function() {
+				var co_me_id = '${user.me_id}';
+				if(co_me_id == ''){
+					alert('로그인 후 댓글 등록이 가능합니다.');
+					return;
+				}
+				var co_content = $('.co_content').val();
+				var co_bd_num = '${board.bd_num}';
+				if(co_content == ''){
+					alert('댓글 내용을 입력하세요.')
+					return;
+				}
+				var comment = {
+						co_me_id : co_me_id,
+						co_content : co_content,
+						co_bd_num : co_bd_num
+				};
+				commentService.insert(comment, '/comment/insert', function(res) {
+					if(res == true){
+		        		$('.co_content').val('');
+		        		alert('댓글 등록이 완료되었습니다.');
+		        	}else{
+		        		alert('댓글 등록에 실패했습니다.')
+		        	};
+				});
+			});
+		});
+	</script>
 </body>
 </html>
