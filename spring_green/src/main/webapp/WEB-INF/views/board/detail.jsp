@@ -114,6 +114,19 @@
 					commentService.delete('/comment/delete?co_num='+co_num, deleteSuccess);
 				}
 			});
+			//수정 버튼 클릭
+			$(document).on('click', '.btn-mod-comment', function(){
+				commentInit();
+				var content = $(this).siblings('.co_content').text();
+				var str = 
+					'<textarea class="form-control co_content2">'+content+'</textarea>';
+				var btn = 
+					'<button class="btn-mod-comment2 btn btn-outline-success">수정 등록</button>';
+				$(this).siblings('.co_content').hide();
+				$(this).parent().children('button').hide();
+				$(this).siblings('.co_content').after(str);
+				$(this).siblings('.co_reg_date').after(btn);
+			});
 		});
 		//첫페이지 링크
 		var listUrl = '/comment/list?page=1&bd_num='+'${board.bd_num}'
@@ -177,6 +190,15 @@
 			str += '</div>';
 			return str;
 		}
+		//다른 수정 버튼 클릭시 초기화
+		function commentInit() {
+			$('.comment-box').each(function() {
+				$(this).find('.co_content2').remove();
+				$(this).find('.btn-mod-comment2').remove();
+				$(this).find('.co_content').show();
+				$(this).find('button').show();
+			});
+		};
 		//날짜변환
 		function getDateStr(date) {
 			var year = date.getFullYear();
