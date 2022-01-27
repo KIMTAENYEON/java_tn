@@ -104,6 +104,10 @@
 			});
 			//페이지네이션 클릭
 			$(document).on('click', '.comment-pagination .page-item', function(){
+				
+				if($(this).hasClass('disabled')){
+					return;
+				}
 				var page = $(this).data('page');
 				commentService.list('/comment/list?page='+page+'&bd_num='+'${board.bd_num}', listSuccess);
 			});
@@ -218,7 +222,7 @@
 			str += '<li class="page-item '+prevDisabled+'" data-page="'+(pm.startPage - 1)+'"><a class="page-link" href="javascript:;">이전</a></li>';
 			for(i = pm.startPage; i <= pm.endPage; i++){
 				var currentActive = pm.criteria.page == i ? 'active' : '';
-				str += '<li class="page-item '+currentActive+'" data-page="'+i+'"><a class="page-link" href="javascript:;">'+i+'</a></li>';				
+				str += '<li class="page-item '+currentActive+'" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';				
 			}
 			str += '<li class="page-item '+nextDisabled+'" data-page="'+(pm.endPage + 1)+'"><a class="page-link" href="javascript:;">다음</a></li>';
 			str += '</ul>'
