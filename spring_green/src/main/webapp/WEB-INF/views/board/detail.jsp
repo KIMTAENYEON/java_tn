@@ -80,6 +80,8 @@
 	<script>
 		commentService.setContextPath('<%=request.getContextPath()%>');
 		$(function(){
+			//1페이지 가져오기
+			commentService.list(listUrl, listSuccess);
 			//댓글 등록 버튼 클릭
 			$('.btn-comment-insert').click(function() {
 				var co_me_id = '${user.me_id}';
@@ -105,13 +107,25 @@
 				var page = $(this).data('page');
 				commentService.list('/comment/list?page='+page+'&bd_num='+'${board.bd_num}', listSuccess);
 			});
-			//1페이지 가져오기
-			commentService.list('/comment/list?page=1&bd_num='+'${board.bd_num}', listSuccess);
+			//삭제 버튼 클릭
+			$(document).on('click', '.btn-del-comment', function(){
+				var co_num = $(this).data('num');
+				if(co_num != ''){
+					commentService.delete('/comment/delete?co_num='+co_num, deleteSuccess);
+				}
+			});
 		});
+		//첫페이지 링크
+		var listUrl = '/comment/list?page=1&bd_num='+'${board.bd_num}'
 		//댓글 리스트 가져오기 실행 후
 		function listSuccess(res) {
 			var str = '';
 			var me_id = '${user.me_id}';
+			if(res.list.length == 0){
+				$('.comment-list').html(str);
+				$('.comment-pagination').html('');
+				return;
+			}
 			for(tmp of res.list){
 				var date = new Date(tmp.co_reg_date)
 				str += createComment(tmp, me_id, getDateStr(date));
@@ -119,17 +133,26 @@
 			$('.comment-list').html(str);
 			var PaginationStr = createCommentPagination(res.pm)
 			$('.comment-pagination').html(PaginationStr);
-		}
+		};
 		//댓글 등록 실행 후
 		function insertSuccess(res) {
 			if(res == true){
         		$('.text_content').val('');
         		alert('댓글 등록이 완료되었습니다.');
-        		commentService.list('/comment/list?page=1&bd_num='+'${board.bd_num}', listSuccess);
+        		commentService.list(listUrl, listSuccess);
         	}else{
         		alert('댓글 등록에 실패했습니다.')
         	};
-		}
+		};
+		//댓글 삭제 실행 후
+		function deleteSuccess(res) {
+			if(res){
+				alert('댓글을 삭제했습니다.');
+				commentService.list(listUrl, listSuccess);
+			}else{
+				alert('댓글 삭제에 실패했습니다.');
+			}
+		};
 		//댓글,답글 추가
 		function createComment(comment, me_id, co_reg_date) {
 			var str = '';
@@ -144,10 +167,10 @@
 			str +=	 	'<div class="co_content">'+comment.co_content+'</div>';
 			str +=	  	'<div class="co_reg_date">'+co_reg_date+'</div>';
 			if(comment.co_ori_num == comment.co_num)
-				str +=	  	'<button class="btn btn-outline-success btn-rep-comment mr-2">답글</button>';
+				str +=	  	'<button class="btn btn-outline-success btn-rep-comment mr-2" data-num="'+comment.co_num+'">답글</button>';
 			if(comment.co_me_id == me_id){
-				str +=	  	'<button class="btn btn-outline-warning btn-mod-comment mr-2">수정</button>';
-				str +=	  	'<button class="btn btn-outline-danger btn-del-comment">삭제</button>';
+				str +=	  	'<button class="btn btn-outline-warning btn-mod-comment mr-2" data-num="'+comment.co_num+'">수정</button>';
+				str +=	  	'<button class="btn btn-outline-danger btn-del-comment" data-num="'+comment.co_num+'">삭제</button>';
 			}
 			str +=   '</div>';
 			str +=   '<hr class="float-left" style="width: 100%">';

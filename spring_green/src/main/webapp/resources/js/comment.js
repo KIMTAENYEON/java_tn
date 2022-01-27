@@ -35,6 +35,7 @@ let commentService = (function(){
 		contextPath : '',
 		setContextPath : setContextPath,
 		insert : ajaxPost,
-		list : ajaxGet
+		list : ajaxGet,
+		delete : ajaxGet
 	}
 })();
