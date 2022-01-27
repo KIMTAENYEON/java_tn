@@ -7,4 +7,13 @@
 		insert into comment (co_bd_num, co_me_id, co_content, co_ori_num)
 			select #{comment.co_bd_num}, #{comment.co_me_id}, #{comment.co_content}, ifnull(max(co_num),0) + 1 from comment
 	</insert>
+	<select id="selectCommentList" resultType="kr.green.green.vo.CommentVO">
+		select * from comment 
+			where co_bd_num = #{bd_num} and co_del = 'N'
+			order by co_ori_num desc, co_num asc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="selectTotalCount" resultType="int">
+		select count(*) from comment where co_bd_num = #{bd_num} and co_del = 'N'
+	</select>
 </mapper>

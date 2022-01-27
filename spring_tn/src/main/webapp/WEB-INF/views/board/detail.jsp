@@ -232,7 +232,7 @@
 					co_ori_num : co_ori_num,
 					co_bd_num : co_bd_num
 			};
-			commentService.insert('/comment/insert', comment, function() {
+			commentService.insert('/comment/insert', comment, function(res) {
 				//답글 등록에 성공하면
 	        	if(res){
 		        	var page = $('.comment-pagination .active').text();

@@ -80,6 +80,7 @@
 	<script>
 		commentService.setContextPath('<%=request.getContextPath()%>');
 		$(function(){
+			//댓글 등록 버튼 클릭
 			$('.btn-comment-insert').click(function() {
 				var co_me_id = '${user.me_id}';
 				if(co_me_id == ''){
@@ -97,41 +98,86 @@
 						co_content : co_content,
 						co_bd_num : co_bd_num
 				};
-				commentService.insert(comment, '/comment/insert', function(res) {
-					if(res == true){
-		        		$('.text_content').val('');
-		        		alert('댓글 등록이 완료되었습니다.');
-		        	}else{
-		        		alert('댓글 등록에 실패했습니다.')
-		        	};
-				});
+				commentService.insert(comment, '/comment/insert', insertSuccess);
 			});
-			
-			commentService.list('/comment/list?page=1&bd_num='+'${board.bd_num}', function(res){
-				console.log(res);
+			//페이지네이션 클릭
+			$(document).on('click', '.comment-pagination .page-item', function(){
+				var page = $(this).data('page');
+				commentService.list('/comment/list?page='+page+'&bd_num='+'${board.bd_num}', listSuccess);
 			});
+			//1페이지 가져오기
+			commentService.list('/comment/list?page=1&bd_num='+'${board.bd_num}', listSuccess);
 		});
-		function createComment(comment, me_id) {
+		//댓글 리스트 가져오기 실행 후
+		function listSuccess(res) {
 			var str = '';
-			str += '<div class="comment-box clearfinx">'
+			var me_id = '${user.me_id}';
+			for(tmp of res.list){
+				var date = new Date(tmp.co_reg_date)
+				str += createComment(tmp, me_id, getDateStr(date));
+			}
+			$('.comment-list').html(str);
+			var PaginationStr = createCommentPagination(res.pm)
+			$('.comment-pagination').html(PaginationStr);
+		}
+		//댓글 등록 실행 후
+		function insertSuccess(res) {
+			if(res == true){
+        		$('.text_content').val('');
+        		alert('댓글 등록이 완료되었습니다.');
+        		commentService.list('/comment/list?page=1&bd_num='+'${board.bd_num}', listSuccess);
+        	}else{
+        		alert('댓글 등록에 실패했습니다.')
+        	};
+		}
+		//댓글,답글 추가
+		function createComment(comment, me_id, co_reg_date) {
+			var str = '';
+			str += '<div class="comment-box clearfix">';
 			if(comment.co_ori_num != comment.co_num){
-				str +=	 '<div class="float-left" style="width: 24px">└</div>'
-				str +=	 '<div class="float-left" style="width: calc(100% - 24px)">'
+				str +=	 '<div class="float-left" style="width: 24px">└</div>';
+				str +=	 '<div class="float-left" style="width: calc(100% - 24px)">';
 			}else{
-				str +=	 '<div class="float-left" style="width: 100%">'
+				str +=	 '<div class="float-left" style="width: 100%">';
 			}
-			str +=	  	'<div class="co_me_id">'+comment.co_me_id+'</div>'				
-			str +=	 	'<div class="co_content">'+comment.co_content+'</div>'
-			str +=	  	'<div class="co_reg_date">'+co_reg_date+'</div>'
+			str +=	  	'<div class="co_me_id">'+comment.co_me_id+'</div>'	;			
+			str +=	 	'<div class="co_content">'+comment.co_content+'</div>';
+			str +=	  	'<div class="co_reg_date">'+co_reg_date+'</div>';
 			if(comment.co_ori_num == comment.co_num)
-				str +=	  	'<button class="btn btn-outline-success btn-rep-comment">답글</button>'
+				str +=	  	'<button class="btn btn-outline-success btn-rep-comment mr-2">답글</button>';
 			if(comment.co_me_id == me_id){
-				str +=	  	'<button class="btn btn-outline-warning btn-mod-comment">수정</button>'
-				str +=	  	'<button class="btn btn-outline-danger btn-del-comment">삭제</button>'
+				str +=	  	'<button class="btn btn-outline-warning btn-mod-comment mr-2">수정</button>';
+				str +=	  	'<button class="btn btn-outline-danger btn-del-comment">삭제</button>';
 			}
-			str +=   '</div>'
-			str +=   '<hr class="float-left" style="width: 100%">'
-			str += '</div>'
+			str +=   '</div>';
+			str +=   '<hr class="float-left" style="width: 100%">';
+			str += '</div>';
+			return str;
+		}
+		//날짜변환
+		function getDateStr(date) {
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var day = date.getDate();
+			var hour = date.getHours();
+			var minute = date.getMinutes();
+			return year + "-" + month + "-" + day + "-" + hour + ":" + minute;
+		}
+		//페이지네이션 추가
+		function createCommentPagination(pm) {
+			var str = '';
+			str += '<ul class="pagination justify-content-center">';
+			var prevDisabled = pm.prev ? '' : 'disabled';
+			var nextDisabled = pm.next ? '' : 'disabled';
+			var page = pm.criteria.page;
+			str += '<li class="page-item '+prevDisabled+'" data-page="'+(pm.startPage - 1)+'"><a class="page-link" href="javascript:;">이전</a></li>';
+			for(i = pm.startPage; i <= pm.endPage; i++){
+				var currentActive = pm.criteria.page == i ? 'active' : '';
+				str += '<li class="page-item '+currentActive+'" data-page="'+i+'"><a class="page-link" href="javascript:;">'+i+'</a></li>';				
+			}
+			str += '<li class="page-item '+nextDisabled+'" data-page="'+(pm.endPage + 1)+'"><a class="page-link" href="javascript:;">다음</a></li>';
+			str += '</ul>'
+			return str;
 		}
 	</script>
 </body>
