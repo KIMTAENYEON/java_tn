@@ -142,6 +142,37 @@
 				}
 				commentService.modify(comment, '/comment/modify', modifySuccess);
 			});
+			//답글 버튼 클릭
+			$(document).on('click', '.btn-rep-comment', function() {
+				commentInit();
+				var co_num = $(this).data('num');
+				var id = '${user.me_id}';
+				if(id == ''){
+					alert('답글은 로그인한 회원만 작성가능합니다.');
+					return;
+				}
+				var str = 
+					'<textarea class="form-control co_content2"></textarea>';
+				var btn = 
+					'<button class="btn-rep-insert btn btn-outline-success" data-num="'+co_num+'">답글 등록</button>';
+				$(this).parent().children('button').hide();
+				$(this).parent().append(str);
+				$(this).parent().append(btn);
+			});
+			//답글 등록 버튼 클릭
+			$(document).on('click', '.btn-rep-insert', function() {
+				var co_content = $('.co_content2').val();
+				var co_ori_num = $(this).data('num');
+				var co_bd_num = '${board.bd_num}';
+				var co_me_id = '${user.me_id}';
+				var comment = {
+					co_content : co_content,
+					co_ori_num : co_ori_num,
+					co_bd_num : co_bd_num,
+					co_me_id : co_me_id
+				};
+				commentService.insert(comment, '/comment/insert', insertSuccess);
+			});
 		});
 		//첫페이지 링크
 		var listUrl = '/comment/list?page=1&bd_num='+'${board.bd_num}'
@@ -216,11 +247,12 @@
 			str += '</div>';
 			return str;
 		}
-		//다른 수정 버튼 클릭시 초기화
+		//다른 버튼 클릭시 초기화
 		function commentInit() {
 			$('.comment-box').each(function() {
 				$(this).find('.co_content2').remove();
 				$(this).find('.btn-mod-insert').remove();
+				$(this).find('.btn-rep-insert').remove();
 				$(this).find('.co_content').show();
 				$(this).find('button').show();
 			});
