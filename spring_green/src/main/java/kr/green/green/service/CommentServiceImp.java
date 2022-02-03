@@ -50,4 +50,17 @@ public class CommentServiceImp implements CommentService{
 		commentDao.deleteComment(co_num);
 		return true;
 	}
+
+	@Override
+	public boolean modifyComment(CommentVO comment, MemberVO user) {
+		if(user == null || comment == null)
+			return false;
+		if(comment.getCo_num() <= 0)
+			return false;
+		CommentVO dbComment = commentDao.selectComment(comment.getCo_num());
+		if(dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id()))
+			return false;
+		commentDao.updateComment(comment);
+		return true;
+	}
 }

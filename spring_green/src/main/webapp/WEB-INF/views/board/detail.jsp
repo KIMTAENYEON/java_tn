@@ -124,12 +124,23 @@
 				var content = $(this).siblings('.co_content').text();
 				var str = 
 					'<textarea class="form-control co_content2">'+content+'</textarea>';
+				var co_num = $(this).data('num');
 				var btn = 
-					'<button class="btn-mod-comment2 btn btn-outline-success">수정 등록</button>';
+					'<button class="btn-mod-insert btn btn-outline-success" data-num="'+co_num+'">수정 등록</button>';
 				$(this).siblings('.co_content').hide();
 				$(this).parent().children('button').hide();
 				$(this).siblings('.co_content').after(str);
 				$(this).siblings('.co_reg_date').after(btn);
+			});
+			//수정 등록 버튼 클릭
+			$(document).on('click', '.btn-mod-insert', function() {
+				var co_content = $(this).siblings('.co_content2').val();
+				var co_num = $(this).data('num');
+				var comment = {
+						co_content : co_content,
+						co_num : co_num
+				}
+				commentService.modify(comment, '/comment/modify', modifySuccess);
 			});
 		});
 		//첫페이지 링크
@@ -170,6 +181,16 @@
 				alert('댓글 삭제에 실패했습니다.');
 			}
 		};
+		//댓글 수정 등록 실행 후
+		function modifySuccess(res) {
+			if(res){
+				var page = $('.comment-pagination .active').data('page');
+				commentService.list('/comment/list?page='+page+'&bd_num='+'${board.bd_num}', listSuccess);
+				alert('댓글 수정이 완료되었습니다.');
+			}else{
+				alert('댓글 수정이 실패했습니다.');
+			}
+		}
 		//댓글,답글 추가
 		function createComment(comment, me_id, co_reg_date) {
 			var str = '';
@@ -180,6 +201,7 @@
 			}else{
 				str +=	 '<div class="float-left" style="width: 100%">';
 			}
+			str +=		'<input type="hidden" name="co_num" value="'+comment.co_num+'">';
 			str +=	  	'<div class="co_me_id">'+comment.co_me_id+'</div>'	;			
 			str +=	 	'<div class="co_content">'+comment.co_content+'</div>';
 			str +=	  	'<div class="co_reg_date">'+co_reg_date+'</div>';
@@ -198,7 +220,7 @@
 		function commentInit() {
 			$('.comment-box').each(function() {
 				$(this).find('.co_content2').remove();
-				$(this).find('.btn-mod-comment2').remove();
+				$(this).find('.btn-mod-insert').remove();
 				$(this).find('.co_content').show();
 				$(this).find('button').show();
 			});
