@@ -10,6 +10,7 @@
   	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 	<!-- 우편번호-->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
 	<script src="<%=request.getContextPath()%>/resources/js/jquery.validate.min.js"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/additional-methods.min.js"></script>
 	<style>
@@ -124,7 +125,7 @@
 		return true;
 	});
 
-		// 우편번호 찾기 찾기 화면을 넣을 element
+	// 우편번호 찾기 찾기 화면을 넣을 element
     var element_wrap = document.getElementById('wrap');
     function foldDaumPostcode() {
 			// iframe을 넣은 element를 안보이게 한다.
