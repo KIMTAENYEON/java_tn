@@ -71,5 +71,15 @@ public class MemberserviceImp implements MemberService{
 		memberDao.updateMember(input);
 		return input;
 	}
+
+	@Override
+	public String findId(MemberVO member) {
+		if(member == null)
+			return "";
+		MemberVO user = memberDao.findMember(member);
+		if(user == null)
+			return "";
+		return user.getMe_id();
+	}
 	
 }

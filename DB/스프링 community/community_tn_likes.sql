@@ -16,34 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `member`
+-- Table structure for table `likes`
 --
 
-DROP TABLE IF EXISTS `member`;
+DROP TABLE IF EXISTS `likes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `member` (
-  `me_id` varchar(20) NOT NULL,
-  `me_pw` varchar(255) DEFAULT NULL,
-  `me_name` varchar(30) DEFAULT NULL,
-  `me_gender` varchar(6) DEFAULT NULL,
-  `me_birth` date DEFAULT NULL,
-  `me_address` varchar(100) DEFAULT NULL,
-  `me_phone` varchar(13) DEFAULT NULL,
-  `me_authority` varchar(10) NOT NULL DEFAULT '회원',
-  `me_email` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`me_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `likes` (
+  `li_num` int NOT NULL AUTO_INCREMENT,
+  `li_bd_num` int NOT NULL,
+  `li_me_id` varchar(20) NOT NULL,
+  `li_state` int NOT NULL,
+  PRIMARY KEY (`li_num`),
+  KEY `li_bd_num_idx` (`li_bd_num`),
+  KEY `li_me_id_idx` (`li_me_id`),
+  CONSTRAINT `li_bd_num` FOREIGN KEY (`li_bd_num`) REFERENCES `board` (`bd_num`),
+  CONSTRAINT `li_me_id` FOREIGN KEY (`li_me_id`) REFERENCES `member` (`me_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `member`
+-- Dumping data for table `likes`
 --
 
-LOCK TABLES `member` WRITE;
-/*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('asd','$2a$10$CUuDKz0cKs2wPEe1HpdlI..DZMY9Y27gmzKF6sYRx/io36vYPg.8C','asd','male','2022-01-03','울산 중구 만남의거리 1 asd','010-1112-1112','관리자','k9313307@naver.com'),('asd123','$2a$10$9CtjeWT6ZwtoLbCb5sGKXeG0rgxsMWE7XLXD0UK3ZxETkbHnbYjdu','asd123','male','2022-01-05','서울 성북구 삼선교로 지하 1tt','010-5555-5555','회원','k9313307@naver.com'),('qwe','$2a$10$wIH/FONSXHosRMGLRMl0JOLvXZMrJTXWEXQTWPezM9gJ6dVtVgDrW','qwe','male','2022-01-02','없음','010-2222-3333','슈퍼 관리자','k9313307@naver.com'),('qwe123','$2a$10$JPK5Ozpcg1xC4mDmicpu8eaPlhX6Z4CmzSYsGBwiqlRL2fXoUHi.6','qwe123','male','2022-02-04','','','회원','k9313307@naver.com');
-/*!40000 ALTER TABLE `member` ENABLE KEYS */;
+LOCK TABLES `likes` WRITE;
+/*!40000 ALTER TABLE `likes` DISABLE KEYS */;
+INSERT INTO `likes` VALUES (1,44,'asd',1),(2,44,'qwe',1),(3,43,'asd',-1),(4,43,'qwe',1),(5,33,'qwe',-1);
+/*!40000 ALTER TABLE `likes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -35,7 +35,7 @@ CREATE TABLE `comment` (
   KEY `co_me_id_idx` (`co_me_id`),
   CONSTRAINT `co_bd_num` FOREIGN KEY (`co_bd_num`) REFERENCES `board` (`bd_num`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `co_me_id` FOREIGN KEY (`co_me_id`) REFERENCES `member` (`me_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,43,'qwe','2022-01-24 11:08:56','N',1,'zz'),(2,43,'qwe','2022-01-24 12:12:31','N',2,'fdzz'),(3,43,'qwe','2022-01-24 12:42:35','N',3,'aa'),(4,33,'qwe','2022-01-24 14:26:31','N',4,'수정'),(5,33,'qwe','2022-01-24 14:26:35','N',5,'2'),(6,33,'qwe','2022-01-24 14:26:37','Y',6,'3'),(7,33,'qwe','2022-01-24 14:26:40','N',7,'4'),(8,33,'qwe','2022-01-24 14:26:42','N',8,'5'),(9,33,'qwe','2022-01-24 14:26:45','N',9,'6'),(10,33,'qwe','2022-01-24 16:50:53','N',10,'7'),(11,33,'qwe','2022-01-24 17:09:32','N',11,'8'),(13,33,'qwe','2022-01-25 15:18:18','N',4,'답글'),(14,43,'qwe','2022-01-25 16:21:11','N',14,'댓글 수정'),(15,43,'qwe','2022-01-25 16:36:11','Y',14,'답글 테스트'),(16,44,'qwe','2022-01-26 12:54:17','N',16,'댓글등록'),(17,44,'qwe','2022-01-26 14:19:52','N',17,'댓글 2');
+INSERT INTO `comment` VALUES (1,43,'qwe','2022-01-24 11:08:56','N',1,'zz'),(2,43,'qwe','2022-01-24 12:12:31','N',2,'fdzz'),(3,43,'qwe','2022-01-24 12:42:35','N',3,'aa'),(4,33,'qwe','2022-01-24 14:26:31','N',4,'수정'),(5,33,'qwe','2022-01-24 14:26:35','N',5,'2'),(6,33,'qwe','2022-01-24 14:26:37','Y',6,'3'),(7,33,'qwe','2022-01-24 14:26:40','N',7,'4'),(8,33,'qwe','2022-01-24 14:26:42','N',8,'5'),(9,33,'qwe','2022-01-24 14:26:45','N',9,'6'),(10,33,'qwe','2022-01-24 16:50:53','N',10,'7'),(11,33,'qwe','2022-01-24 17:09:32','N',11,'8'),(13,33,'qwe','2022-01-25 15:18:18','N',4,'답글'),(14,43,'qwe','2022-01-25 16:21:11','N',14,'댓글 수정'),(15,43,'qwe','2022-01-25 16:36:11','Y',14,'답글 테스트'),(16,44,'qwe','2022-01-26 12:54:17','N',16,'댓글등록'),(17,44,'qwe','2022-01-26 14:19:52','N',17,'댓글 2'),(21,44,'qwe','2022-02-03 09:26:27','Y',18,'댓글 3'),(22,44,'qwe','2022-02-03 09:26:39','Y',22,'댓글4'),(23,44,'qwe','2022-02-03 09:27:37','N',23,'댓글 3 수정'),(24,44,'qwe','2022-02-03 12:59:03','N',24,'댓글 4'),(25,44,'qwe','2022-02-03 13:01:20','N',23,'답글'),(26,44,'qwe','2022-02-03 13:05:05','N',24,'4');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-26 17:55:41
+-- Dump completed on 2022-02-04 16:37:52
