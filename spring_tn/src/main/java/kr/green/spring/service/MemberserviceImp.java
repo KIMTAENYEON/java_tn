@@ -123,6 +123,7 @@ public class MemberserviceImp implements MemberService{
         mailSender.send(message);
     } catch(Exception e){
         System.out.println(e);
+        return "error";
     }
 		
 		return "true";
