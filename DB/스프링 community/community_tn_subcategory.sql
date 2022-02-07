@@ -16,36 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `member`
+-- Table structure for table `subcategory`
 --
 
-DROP TABLE IF EXISTS `member`;
+DROP TABLE IF EXISTS `subcategory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `member` (
-  `me_id` varchar(20) NOT NULL,
-  `me_pw` varchar(255) DEFAULT NULL,
-  `me_name` varchar(30) DEFAULT NULL,
-  `me_gender` varchar(6) DEFAULT NULL,
-  `me_birth` date DEFAULT NULL,
-  `me_address` varchar(100) DEFAULT NULL,
-  `me_phone` varchar(13) DEFAULT NULL,
-  `me_authority` varchar(10) NOT NULL DEFAULT '회원',
-  `me_email` varchar(100) NOT NULL DEFAULT '',
-  `me_session_id` varchar(255) DEFAULT NULL,
-  `me_session_limit` datetime DEFAULT NULL,
-  PRIMARY KEY (`me_id`)
+CREATE TABLE `subcategory` (
+  `su_num` int NOT NULL AUTO_INCREMENT,
+  `su_name` varchar(45) NOT NULL,
+  `su_mi_num` int NOT NULL,
+  PRIMARY KEY (`su_num`),
+  KEY `su_mi_num_idx` (`su_mi_num`),
+  CONSTRAINT `su_mi_num` FOREIGN KEY (`su_mi_num`) REFERENCES `middlecategory` (`mi_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `member`
+-- Dumping data for table `subcategory`
 --
 
-LOCK TABLES `member` WRITE;
-/*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('asd','$2a$10$ZcO0YwToVdLWnfBnj670WugxQP3kQsZxaNj0lOejc8MIQoaXnSaIe','asd','male','2022-01-03','울산 중구 만남의거리 1 asd','010-1112-1112','관리자','k9313307@naver.com',NULL,NULL),('asd123','$2a$10$9CtjeWT6ZwtoLbCb5sGKXeG0rgxsMWE7XLXD0UK3ZxETkbHnbYjdu','asd123','male','2022-01-05','서울 성북구 삼선교로 지하 1tt','010-5555-5555','회원','k9313307@naver.com',NULL,NULL),('qwe','$2a$10$wIH/FONSXHosRMGLRMl0JOLvXZMrJTXWEXQTWPezM9gJ6dVtVgDrW','qwe','male','2022-01-02','없음','010-2222-3333','슈퍼 관리자','k9313307@naver.com','none','2022-02-07 16:39:02'),('qwe123','$2a$10$JPK5Ozpcg1xC4mDmicpu8eaPlhX6Z4CmzSYsGBwiqlRL2fXoUHi.6','qwe123','male','2022-02-04','','','회원','k9313307@naver.com',NULL,NULL);
-/*!40000 ALTER TABLE `member` ENABLE KEYS */;
+LOCK TABLES `subcategory` WRITE;
+/*!40000 ALTER TABLE `subcategory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `subcategory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

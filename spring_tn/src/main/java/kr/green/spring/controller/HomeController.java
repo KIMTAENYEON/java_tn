@@ -30,10 +30,6 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView homeGet(ModelAndView mv) {
 		mv.setViewName("/main/home");
-		//화면으로 데이터를 보낼때 addObject를 사용 
-		//addObject("화면에서 사용할 이름", 데이터);
-		mv.addObject("serverTime", "데이터" );
-		
 		return mv;
 	}
 	

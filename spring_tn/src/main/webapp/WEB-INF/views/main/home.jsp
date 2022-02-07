@@ -8,19 +8,18 @@
 </head>
 <body>
 	<div class="body">
-		<input type="text" id="input">
-		<button id="btn">확인</button>
+		<select class="main-category">
+			<option>선택</option>
+		</select>
+		<select class="middle-category">
+			<option>선택</option>
+		</select>
+		<select class="sub-category">
+			<option>선택</option>
+		</select>
 	</div>
 	<script>
-		var idRegex = /^[A-z]\w{4,7}$/g;
-		$('#btn').click(function() {
-			var id = $('#input').val();
-			if(idRegex.test(id)){
-				alert('정규표현식에 맞습니다.');
-			}else{
-				alert('정규표현식에 맞지 않습니다.')
-			}
-		});
+	
 	</script>
 </body>
 </html>

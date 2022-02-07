@@ -16,33 +16,26 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `likes`
+-- Table structure for table `maincategory`
 --
 
-DROP TABLE IF EXISTS `likes`;
+DROP TABLE IF EXISTS `maincategory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `likes` (
-  `li_num` int NOT NULL AUTO_INCREMENT,
-  `li_bd_num` int NOT NULL,
-  `li_me_id` varchar(20) NOT NULL,
-  `li_state` int NOT NULL,
-  PRIMARY KEY (`li_num`),
-  KEY `li_bd_num_idx` (`li_bd_num`),
-  KEY `li_me_id_idx` (`li_me_id`),
-  CONSTRAINT `li_bd_num` FOREIGN KEY (`li_bd_num`) REFERENCES `board` (`bd_num`),
-  CONSTRAINT `li_me_id` FOREIGN KEY (`li_me_id`) REFERENCES `member` (`me_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `maincategory` (
+  `ma_num` int NOT NULL AUTO_INCREMENT,
+  `ma_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`ma_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `likes`
+-- Dumping data for table `maincategory`
 --
 
-LOCK TABLES `likes` WRITE;
-/*!40000 ALTER TABLE `likes` DISABLE KEYS */;
-INSERT INTO `likes` VALUES (1,44,'asd',1),(2,44,'qwe',1),(3,43,'asd',-1),(4,43,'qwe',1),(5,33,'qwe',-1);
-/*!40000 ALTER TABLE `likes` ENABLE KEYS */;
+LOCK TABLES `maincategory` WRITE;
+/*!40000 ALTER TABLE `maincategory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `maincategory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
