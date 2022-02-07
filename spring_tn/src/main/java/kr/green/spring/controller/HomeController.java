@@ -101,4 +101,9 @@ public class HomeController {
 	public String memberFindId(@RequestBody MemberVO member) {
 		return memberService.findId(member);
 	}
+	@ResponseBody
+	@RequestMapping(value = "/member/find/pw")
+	public String memberFindPw(@RequestBody MemberVO member) {
+		return memberService.findPw(member);
+	}
 }
