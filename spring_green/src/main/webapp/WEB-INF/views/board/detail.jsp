@@ -36,6 +36,10 @@
 			  	</a>
 			  </c:forEach>
 			</div>
+			<div class="justify-content-center likes-btn-box" style="display: flex">
+				<button class="btn btn-outline-primary btn-up" data-state="1">추천</button>
+				<button class="btn btn-outline-danger btn-down ml-2" data-state="-1">비추천</button>
+			</div>
 			<c:if test="${user.me_id == board.bd_me_id}">
 				<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">
 					<button class="btn btn-outline-warning">수정</button>
@@ -173,6 +177,68 @@
 				};
 				commentService.insert(comment, '/comment/insert', insertSuccess);
 			});
+			//추천/비추천 버튼 클릭
+			$('.likes-btn-box .btn').click(function() {
+				var li_state = $(this).data('state');
+				var li_bd_num = '${board.bd_num}';
+				var li_me_id = '${user.me_id}';
+				var likes = {
+					li_state : li_state,
+					li_bd_num : li_bd_num,
+					li_me_id : li_me_id
+				}
+				if(li_me_id == ''){
+					alert('로그인한 회원만 가능합니다.');
+					return;
+				}
+				$.ajax({
+			        async:false,
+			        type:'POST',
+			        data:JSON.stringify(likes),
+			        url:'<%=request.getContextPath()%>/board/likes',
+			        dataType:"json",
+			        contentType:"application/json; charset=UTF-8",
+			        success : function(res){
+			        	if(res == 1){
+			        		alert('추천했습니다.');
+			        	}else if(res == -1){
+			        		alert('비추천했습니다.');
+			        	}else if(res != "fail"){
+			        		var str = li_state == 1 ? '추천' : '비추천';
+			        		alert(str + '을 취소했습니다.')
+			        	}
+			        	viewLikes(likes);
+			        }
+			    });
+			});
+		});
+		//추천/비추천 상태 버튼색깔변경
+		function viewLikes(likes) {
+			$.ajax({
+		        async:false,
+		        type:'POST',
+		        data:JSON.stringify(likes),
+		        url:'<%=request.getContextPath()%>/board/view/likes',
+		        dataType:"json",
+		        contentType:"application/json; charset=UTF-8",
+		        success : function(res){
+		        	$('.btn-up').removeClass('btn-primary').addClass('btn-outline-primary');
+		        	$('.btn-down').removeClass('btn-danger').addClass('btn-outline-danger');
+		        	$('.likes-btn-box .btn').each(function() {
+						if($(this).data('state') == res){
+							if($(this).hasClass('btn-down')){
+								$(this).removeClass('btn-outline-danger').addClass('btn-danger')
+							}else if($(this).hasClass('btn-up')){
+								$(this).removeClass('btn-outline-primary').addClass('btn-primary')
+							}
+						}
+					});
+		        }
+		    });
+		};
+		viewLikes({
+			li_bd_num : '${board.bd_num}',
+			li_me_id : '${user.me_id}'
 		});
 		//첫페이지 링크
 		var listUrl = '/comment/list?page=1&bd_num='+'${board.bd_num}'

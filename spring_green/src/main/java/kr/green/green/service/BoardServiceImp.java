@@ -13,6 +13,7 @@ import kr.green.green.pagination.Criteria;
 import kr.green.green.utils.UploadFileUtils;
 import kr.green.green.vo.BoardVO;
 import kr.green.green.vo.FileVO;
+import kr.green.green.vo.LikesVO;
 import kr.green.green.vo.MemberVO;
 
 @Service
@@ -154,5 +155,37 @@ public class BoardServiceImp implements BoardService{
 		if(bd_num == null || bd_num <= 0)
 			return;
 		boardDao.updateViews(bd_num);
+	}
+
+	@Override
+	public String likes(LikesVO likes, MemberVO user) {
+		if(likes == null || user == null)
+			return "fail";
+		if(likes.getLi_me_id() == null || !likes.getLi_me_id().equals(user.getMe_id()))
+			return "fail";
+		LikesVO dbLikes = boardDao.selectLikes(likes);
+		if(dbLikes == null) {
+			boardDao.insertLikes(likes);
+			boardDao.updateBoardLikes(likes);
+			return ""+likes.getLi_state();
+		}
+		if(dbLikes.getLi_state() == likes.getLi_state()) {
+			likes.setLi_state(0);
+			boardDao.updateLikes(likes);
+			return ""+likes.getLi_state();
+		}
+		boardDao.updateLikes(likes);
+		boardDao.updateBoardLikes(likes);
+		return ""+likes.getLi_state();
+	}
+
+	@Override
+	public String viewLikes(LikesVO likes, MemberVO user) {
+		if(likes == null || user == null)
+			return "fail";
+		LikesVO dbLikes = boardDao.selectLikes(likes);
+		if(dbLikes == null)
+			return "0";
+		return ""+dbLikes.getLi_state();
 	}
 }
