@@ -1,5 +1,7 @@
 package kr.green.spring.service;
 
+import java.util.List;
+
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.spring.dao.MemberDAO;
+import kr.green.spring.vo.MainCategoryVO;
 import kr.green.spring.vo.MemberVO;
+import kr.green.spring.vo.MiddleCategoryVO;
 @Service
 public class MemberserviceImp implements MemberService{
 	
@@ -162,5 +166,24 @@ public class MemberserviceImp implements MemberService{
 	@Override
 	public MemberVO selectMemberBySessionId(String me_session_id) {
 		return memberDao.selectMemberBySessionId(me_session_id);
+	}
+
+	@Override
+	public List<MainCategoryVO> selectMainCategory() {
+		return memberDao.selectMainCategory();
+	}
+
+	@Override
+	public List<MiddleCategoryVO> selectMiddlesCategory(Integer mi_ma_num) {
+		if(mi_ma_num == null || mi_ma_num <= 0)
+			return null;
+		return memberDao.selectMiddleCategory(mi_ma_num);
+	}
+
+	@Override
+	public List<MiddleCategoryVO> selectSubCategory(Integer su_mi_num) {
+		if(su_mi_num == null || su_mi_num <= 0)
+			return null;
+		return memberDao.selectSubCategory(su_mi_num);
 	}
 }
