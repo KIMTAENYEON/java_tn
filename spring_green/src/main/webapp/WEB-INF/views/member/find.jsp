@@ -42,7 +42,7 @@
 			  	<input type="text" class="form-control" placeholder="이메일" name="me_email">
 			  </div>
 			  <div class="form-group">
-			  	<input type="text" class="form-control" placeholder="아이디" name="me_name">
+			  	<input type="text" class="form-control" placeholder="아이디" name="me_id">
 			  </div>
 			  <button class="btn btn-outline-success col-12 btn-find-pw">찾기</button>
 			</li>
@@ -57,7 +57,7 @@
 			$(target).show();
 		});
 		$('.nav-tabs a').first().click();
-		//아이디찾기 클릭
+		//아이디 찾기 클릭
 		$('.btn-find-id').click(function() {
 			var me_email = $(this).parent().find('[name=me_email]').val();
 			var me_name = $(this).parent().find('[name=me_name]').val();
@@ -77,6 +77,31 @@
 		        	}else{
 		        		alert('회원님의 아이디는 '+res+'입니다.' );
 		        	}
+		        }
+		    });
+		});
+		//비밀번호 찾기 클릭
+		$('.btn-find-pw').click(function() {
+			var me_email = $(this).parent().find('[name=me_email]').val();
+			var me_id = $(this).parent().find('[name=me_id]').val();
+			var member = {
+				me_email : me_email,
+				me_id : me_id
+			}
+			$.ajax({
+		        async:false,
+		        type:'POST',
+		        data:JSON.stringify(member),
+		        url: '<%=request.getContextPath()%>/member/find/pw',
+		        contentType:"application/json; charset=UTF-8",
+		        success : function(res){
+		        	if(res == "true"){
+						alert('새 비밀번호가 발급 되었습니다. 입력한 메일에서 확인하세요.');
+					}else if(res == "false"){
+						alert('입력한 정보가 잘못됐습니다.');
+					}else if(res == 'error'){
+						alert('메일 전송에 실패했습니다. 관리자에게 문의하세요.')
+					}
 		        }
 		    });
 		});

@@ -84,7 +84,12 @@ public class HomeController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/member/find/id")
-	public String memberFindID(@RequestBody MemberVO member) {
+	public String memberFindId(@RequestBody MemberVO member) {
 		return memberService.findId(member);
+	}
+	@ResponseBody
+	@RequestMapping(value = "/member/find/pw")
+	public String memberFindPw(@RequestBody MemberVO member) {
+		return memberService.findPw(member);
 	}
 }
