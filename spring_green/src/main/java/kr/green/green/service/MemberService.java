@@ -10,4 +10,6 @@ public interface MemberService {
 
 	String idCheck(String id);
 
+	MemberVO updateMember(MemberVO input, MemberVO user);
+
 }

@@ -57,8 +57,8 @@ public class HomeController {
 		return mv;
 	}
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logoutGet(ModelAndView mv, HttpServletRequest requst) {	
-		requst.getSession().removeAttribute("user");
+	public ModelAndView logoutGet(ModelAndView mv, HttpServletRequest request) {	
+		request.getSession().removeAttribute("user");
 		mv.setViewName("redirect:/");	
 		return mv;
 	}
@@ -66,5 +66,14 @@ public class HomeController {
 	@RequestMapping(value = "/idCheck")
 	public String idCheck(String me_id) {	
 		return memberService.idCheck(me_id);
+	}
+	@RequestMapping(value = "/mypage")
+	public ModelAndView mypage(ModelAndView mv, HttpServletRequest request, MemberVO input) {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		MemberVO newUser = memberService.updateMember(input, user);
+		if(newUser != null)
+			request.getSession().setAttribute("user", newUser);
+		mv.setViewName("/member/mypage");	
+		return mv;
 	}
 }
