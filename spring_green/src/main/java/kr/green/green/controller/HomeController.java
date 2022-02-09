@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -75,5 +76,15 @@ public class HomeController {
 			request.getSession().setAttribute("user", newUser);
 		mv.setViewName("/member/mypage");	
 		return mv;
+	}
+	@RequestMapping(value = "/member/find")
+	public ModelAndView memberFind(ModelAndView mv, HttpServletRequest request, MemberVO input) {
+		mv.setViewName("/member/find");	
+		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/member/find/id")
+	public String memberFindID(@RequestBody MemberVO member) {
+		return memberService.findId(member);
 	}
 }

@@ -80,4 +80,11 @@ public class MemberServiceImp implements MemberService{
 		memberDao.updateMember(input);
 		return input;
 	}
+
+	@Override
+	public String findId(MemberVO member) {
+		if(member == null)
+			return "";
+		return memberDao.findId(member);
+	}
 }
