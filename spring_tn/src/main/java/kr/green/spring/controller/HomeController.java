@@ -78,13 +78,13 @@ public class HomeController {
 		return mv;
 	}
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logoutGet(ModelAndView mv, HttpServletRequest requst, HttpServletResponse response) {	
-		MemberVO user = (MemberVO) requst.getSession().getAttribute("user");
+	public ModelAndView logoutGet(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {	
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 		if(user != null) {
 			//세션에 있는 유저 정보를 삭제
-			requst.getSession().removeAttribute("user");
+			request.getSession().removeAttribute("user");
 			//request에 있는 쿠키 들 중에서 loginCookie 정보를 가져옴
-			Cookie cookie = WebUtils.getCookie(requst, "loginCookie");
+			Cookie cookie = WebUtils.getCookie(request, "loginCookie");
 			//loginCookie 정보가 있으면 => 자동로그인 했다가 로그아웃하는 경우
 			if(cookie != null) {
 				cookie.setMaxAge(0);

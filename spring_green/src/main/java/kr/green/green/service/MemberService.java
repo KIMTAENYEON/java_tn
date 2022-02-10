@@ -16,4 +16,8 @@ public interface MemberService {
 
 	String findPw(MemberVO member);
 
+	void updateAutoLogin(MemberVO user);
+
+	MemberVO selectMemberBySessionId(String value);
+
 }

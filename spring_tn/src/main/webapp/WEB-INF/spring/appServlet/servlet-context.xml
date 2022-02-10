@@ -44,6 +44,7 @@
 		class="kr.green.spring.interceptor.GuestInterceptor"></beans:bean>
 	<beans:bean id="autoLoginInterceptor" 
 		class="kr.green.spring.interceptor.AutoLoginInterceptor"></beans:bean>
+		
 	<interceptors>
 		<!-- 등록된 인터셉터가 어떤 URL에 동작하는지를 설정 -->
 	    <interceptor>
