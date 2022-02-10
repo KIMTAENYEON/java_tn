@@ -13,6 +13,11 @@
 			border : 1px solid #dee2e6; border-top : none;
 			min-height : 300px;
 		}
+		.spinner-box{
+			position : absolute; top : calc(50vh - 16px); 
+			left : calc(50vw - 16px); width : 32px; height : 32px;
+			display: none;
+		}
 	</style>
 </head>
 <body>
@@ -47,6 +52,9 @@
 			  <button class="btn btn-outline-success col-12 btn-find-pw">찾기</button>
 			</li>
 		</ul>
+	</div>
+	<div class="spinner-box">
+		<div class="spinner-border"></div>
 	</div>
 	<script>
 		$('.nav-tabs a').click(function() {
@@ -88,22 +96,26 @@
 				me_email : me_email,
 				me_id : me_id
 			}
-			$.ajax({
-		        async:false,
-		        type:'POST',
-		        data:JSON.stringify(member),
-		        url: '<%=request.getContextPath()%>/member/find/pw',
-		        contentType:"application/json; charset=UTF-8",
-		        success : function(res){
-		        	if(res == "true"){
-						alert('새 비밀번호가 발급 되었습니다. 입력한 메일에서 확인하세요.');
-					}else if(res == "false"){
-						alert('입력한 정보가 잘못됐습니다.');
-					}else if(res == 'error'){
-						alert('메일 전송에 실패했습니다. 관리자에게 문의하세요.')
-					}
-		        }
-		    });
+			$('.spinner-box').show();
+			setTimeout(() => {
+				$.ajax({
+			        async:false,
+			        type:'POST',
+			        data:JSON.stringify(member),
+			        url: '<%=request.getContextPath()%>/member/find/pw',
+			        contentType:"application/json; charset=UTF-8",
+			        success : function(res){
+			        	$('.spinner-box').hide();
+			        	if(res == "true"){
+							alert('새 비밀번호가 발급 되었습니다. 입력한 메일에서 확인하세요.');
+						}else if(res == "false"){
+							alert('입력한 정보가 잘못됐습니다.');
+						}else if(res == 'error'){
+							alert('메일 전송에 실패했습니다. 관리자에게 문의하세요.')
+						}
+			        }
+			    });
+			}, 100);
 		});
 	</script>
 </body>

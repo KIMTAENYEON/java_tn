@@ -107,26 +107,12 @@ public class MemberServiceImp implements MemberService{
 		user.setMe_pw(encPw);
 		memberDao.updateMember(user);
 		
-		String setfrom = "k9313308@gmail.com";     // 보내는 사람 이메일    
-    String tomail  = member.getMe_email();     // 받는 사람 이메일
+		String from = "k9313308@gmail.com";     // 보내는 사람 이메일    
+    String to  = member.getMe_email();     // 받는 사람 이메일
     String title   = "새 비밀번호 입니다.";      // 제목
     String content = "새 비밀번호는 " + newPw + "입니다.";    // 내용
 
-    try {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper messageHelper 
-            = new MimeMessageHelper(message, true, "UTF-8");
-
-        messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
-        messageHelper.setTo(tomail);     // 받는사람 이메일
-        messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-        messageHelper.setText(content);  // 메일 내용
-
-        mailSender.send(message);
-    } catch(Exception e){
-        System.out.println(e);
-        return "error";
-    }
+    sendEmail(from, to, title, content);
     
 		return "true";
 	}
@@ -145,5 +131,23 @@ public class MemberServiceImp implements MemberService{
 			}
 		}
 		return pw;
+	}
+	private boolean sendEmail (String from, String to, String title, String content) {
+		try {
+	      MimeMessage message = mailSender.createMimeMessage();
+	      MimeMessageHelper messageHelper 
+	          = new MimeMessageHelper(message, true, "UTF-8");
+	
+	      messageHelper.setFrom(from);  // 보내는사람 생략하거나 하면 정상작동을 안함
+	      messageHelper.setTo(to);     // 받는사람 이메일
+	      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+	      messageHelper.setText(content);  // 메일 내용
+	
+	      mailSender.send(message);
+	  } catch(Exception e){
+	      System.out.println(e);
+	      return false;
+	  }
+		return true;
 	}
 }
