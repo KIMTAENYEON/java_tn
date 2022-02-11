@@ -10,6 +10,11 @@
   	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 	<!-- 우편번호-->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/jquery.validate.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/additional-methods.min.js"></script>
+	<style>
+		.error{color : red}
+	</style>
 </head>
 <body>
 	<div class="body">
@@ -24,19 +29,19 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="아이디" name="me_id" value="${user.me_id}">
+				<input type="text" class="form-control" placeholder="아이디" name="me_id">
 			</div>
 			<div class="form-group">
 				<button id="idCheck" type="button" class="btn btn-outline-success col-12">중복확인</button>
 			</div>
 			<div class="form-group">
-				<input type="password" class="form-control" placeholder="비밀번호" name="me_pw" value="${user.me_pw}">
+				<input type="password" class="form-control" placeholder="비밀번호" name="me_pw" id="pw">
 			</div>
 			<div class="form-group">
 				<input type="password" class="form-control" placeholder="비밀번호확인" name="me_pw2">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="이름" name="me_name" value="${user.me_name}">
+				<input type="text" class="form-control" placeholder="이름" name="me_name">
 			</div>
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="생년월일" name="me_birth" id="birth">
@@ -51,6 +56,9 @@
 					<label class="form-check-label">
 						<input type="radio" class="form-check-input" name="me_gender" value="female">여성
 					</label>
+				</div>
+				<div>
+					<label class="error" id="me_gender_error" for="me_gender"></label>
 				</div>
 			</div>
 			<div class="form-group">
@@ -100,11 +108,6 @@
 	// 회원가입 전송
 	$('form').submit(function(){
 		var id = $('input[name=me_id]').val().trim();
-		var pw = $('input[name=me_pw]').val().trim();
-		var pw2 = $('input[name=me_pw2]').val().trim();
-		var name = $('input[name=me_name]').val().trim();
-		var birth = $('input[name=me_birth]').val().trim();
-		var gender = $('input[name=me_gender').is(':checked');
 		var agree = $('input[name=agree').is(':checked');
 		if(!agree){
 			alert('약관동의를 선택하세요. ')
@@ -114,29 +117,6 @@
 		if(!idCheck){
 			alert('아이디 중복확인을 하세요.')
 			return false;
-		}else if(id == ''){
-			alert('아이디를 입력하세요. ')
-			$('[name=me_id]').focus();
-			return false;
-		}else if(pw == '' || pw2 == ''){
-			alert('비밀번호를 입력하세요. ')
-			$('[name=me_pw]').focus();
-			return false;
-		}else if(pw != pw2){
-			alert('비밀번호를 확인하세요. ')
-			$('[name=me_pw2]').focus();
-			return false;
-		}else if(name == ''){
-			alert('이름을 입력하세요. ')
-			$('[name=me_name]').focus();
-			return false;
-		}else if(birth == ''){
-			alert('생년월일을 입력하세요. ')
-			$('[name=me_birth]').focus();
-			return false;
-		}else if(!gender){
-			alert('성별을 선택하세요. ')
-			$('[name=me_gender]').focus();
 		}
 		var address = $('#address').val() + $('#detailAddress').val();
 		$('[name=me_address]').val(address);
@@ -202,6 +182,75 @@
 			// iframe을 넣은 element를 보이게 한다.
 			element_wrap.style.display = 'block';
     }
+    
+    $(function(){
+        $("form").validate({
+            rules: {
+            	//5~20자의 영문 소문자, 숫자와 특수기호(_), (-)만 사용가능합니다.
+                me_id: {
+                    required : true,
+                    regex : /^[A-Za-z0-9][A-z0-9_-]{4,19}$/
+                },
+                me_pw: {
+                	required : true,
+                	regex : /^[A-Za-z0-9-_!@#$%]{8,16}$/
+                },
+                me_pw2: {
+                	equalTo : pw
+                },
+                me_name: {
+                	required : true
+                },
+                me_gender: {
+                	required : true
+                },
+                me_birth : {
+                	required : true,
+                	regex : /^\d{4}-\d{2}-\d{2}$/
+                },
+                me_phone: {
+                	required : true,
+                	regex : /^\d{3}-\d{4}-\d{4}$/
+                }
+            },
+            //규칙체크 실패시 출력될 메시지
+            messages : {
+                me_id: {
+                    required : "필수로입력하세요",
+                    regex : "5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다."
+                },
+            	me_pw: {
+                	required : "필수로입력하세요",
+                	reges : "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요."
+                },
+                me_pw2: {
+                	equalTo : '비밀번호와 일치하지 않습니다.'
+                },
+                me_name: {
+                	required : "필수로입력하세요"
+                },
+                me_gender: {
+                	required : "필수로입력하세요"
+                },
+                me_birty: {
+                	required : "필수로입력하세요",
+                	regex : 'yyyy-mm-dd형태로 입력하세요.'
+                },
+                me_phone: {
+                	required : "필수로입력하세요",
+                	regex : '000-0000-0000형태로 입력하세요.'
+                }
+            }
+        });
+    })
+    $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },
+        "Please check your input."
+    );
 	</script>
 </body>
 </html>
